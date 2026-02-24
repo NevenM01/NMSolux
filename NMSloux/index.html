@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMSolux | Tech studio — custom softver, SaaS i web aplikacije</title>
+    <meta name="description" content="Custom softver, SaaS i web aplikacije za rastuće tvrtke. Proizvodi i sustavi koje možete održavati. Odgovornost, ne samo sate.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.0/lucide.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@200;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050308;
+            --bg-deep: #020106;
+            --accent: #8b5cf6;
+            --accent-secondary: #3b82f6;
+            --zinc-border: rgba(255, 255, 255, 0.06);
+            --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #fafafa;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Dubina pozadine: meki orbi i gradijenti, bez kvadrata */
+        .bg-depth {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            background:
+                /* Vignette — tamniji rubovi za dubinu */
+                radial-gradient(ellipse 140% 140% at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.4) 100%),
+                /* Blagi orb gore lijevo */
+                radial-gradient(ellipse 90% 70% at 20% 25%, rgba(50, 25, 80, 0.14) 0%, transparent 50%),
+                /* Blagi orb gore desno */
+                radial-gradient(ellipse 100% 80% at 85% 15%, rgba(60, 20, 90, 0.16) 0%, transparent 50%),
+                /* Blagi orb dolje lijevo */
+                radial-gradient(ellipse 80% 100% at 15% 85%, rgba(30, 15, 60, 0.14) 0%, transparent 45%),
+                /* Blagi orb dolje desno */
+                radial-gradient(ellipse 70% 90% at 80% 90%, rgba(25, 10, 50, 0.1) 0%, transparent 45%),
+                /* Glavni spotlight centar-gore (ljubičasta) */
+                radial-gradient(ellipse 80% 60% at 50% 45%, rgba(60, 20, 90, 0.24) 0%, transparent 55%),
+                /* Dubina: tamno prema rubovima */
+                radial-gradient(ellipse 150% 150% at 50% 50%, var(--bg) 0%, var(--bg-deep) 100%);
+        }
+
+        /* Suptilna tekstura dubine — točkice */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.16;
+            background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 28px 28px;
+            mask-image: radial-gradient(ellipse 120% 100% at 50% 50%, black 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 120% 100% at 50% 50%, black 0%, transparent 70%);
+        }
+
+        /* Pattern — dijagonalne linije (crosshatch) */
+        .bg-pattern {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.08;
+            background-image:
+                linear-gradient(105deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(-75deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse 130% 120% at 50% 50%, black 20%, transparent 72%);
+            -webkit-mask-image: radial-gradient(ellipse 130% 120% at 50% 50%, black 20%, transparent 72%);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 50% -20%, rgba(139, 92, 246, 0.2), transparent 70%);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--zinc-border);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-4px);
+        }
+
+        #portfolio-process {
+            height: 750vh;
+            position: relative;
+        }
+
+        .process-sticky {
+            position: sticky;
+            top: 0;
+            min-height: 100vh;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        /* Odabrani radovi: tabovi + jedan veliki panel (kao na slici) */
+        #fan-stage .projects-tabbed {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 1.5rem 8rem;
+            box-sizing: border-box;
+        }
+        .projects-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 9999px;
+            padding: 4px;
+            gap: 2px;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 100%;
+        }
+        .projects-tabs button {
+            padding: 0.6rem 1.25rem;
+            border: none;
+            border-radius: 9999px;
+            background: transparent;
+            color: rgba(161, 161, 170, 0.95);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.25s var(--ease-premium), background 0.25s var(--ease-premium);
+        }
+        .projects-tabs button:hover {
+            color: #fafafa;
+        }
+        .projects-tabs button.active {
+            background: rgba(139, 92, 246, 0.25);
+            color: #fafafa;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .project-panel {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 0;
+            max-width: 900px;
+            width: 100%;
+            background: linear-gradient(145deg, rgba(22, 16, 38, 0.9) 0%, rgba(14, 10, 26, 0.95) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            overflow: hidden;
+            min-height: 320px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+        }
+        .project-panel-image {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(59, 130, 246, 0.06) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .project-panel-image svg {
+            width: 64px;
+            height: 64px;
+            opacity: 0.4;
+            color: rgba(139, 92, 246, 0.8);
+        }
+        .project-panel-body {
+            padding: 2.25rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .project-panel-tag {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(139, 92, 246, 0.95);
+            margin-bottom: 0.5rem;
+        }
+        .project-panel-body h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.75rem;
+            color: #fafafa;
+        }
+        .project-panel-desc {
+            font-size: 0.9375rem;
+            line-height: 1.55;
+            color: rgba(161, 161, 170, 0.95);
+            margin: 0 0 1rem;
+        }
+        .project-panel-full {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: rgba(212, 212, 216, 0.9);
+            margin: 0;
+        }
+        @media (max-width: 768px) {
+            .project-panel {
+                grid-template-columns: 1fr;
+            }
+            .project-panel-image {
+                min-height: 160px;
+            }
+        }
+
+        .step-card {
+            position: absolute;
+            width: 100%;
+            max-width: 280px;
+            padding: 0;
+            background: linear-gradient(145deg, rgba(20, 14, 36, 0.85) 0%, rgba(12, 8, 24, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s var(--ease-premium),
+                        transform 0.5s var(--ease-premium),
+                        box-shadow 0.35s var(--ease-premium),
+                        border-color 0.35s var(--ease-premium);
+            z-index: 70;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            left: 50%;
+            top: 50%;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03);
+            overflow: hidden;
+        }
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.6), transparent);
+            opacity: 0.8;
+        }
+
+        /* U grid layoutu: relativni, bez apsolutnog pozicioniranja */
+        #fan-stage .cards-container.layout-grid .step-card {
+            position: relative;
+            left: auto;
+            top: auto;
+            transform: translateY(0);
+            opacity: 0;
+            max-width: none;
+        }
+        #fan-stage .cards-container.layout-grid .step-card.fan-visible {
+            opacity: 1;
+        }
+        #fan-stage .cards-container.layout-grid .step-card:nth-child(1) { transition-delay: 0.05s; }
+        #fan-stage .cards-container.layout-grid .step-card:nth-child(2) { transition-delay: 0.1s; }
+        #fan-stage .cards-container.layout-grid .step-card:nth-child(3) { transition-delay: 0.15s; }
+        #fan-stage .cards-container.layout-grid .step-card:nth-child(4) { transition-delay: 0.2s; }
+        #fan-stage .cards-container.layout-grid .step-card:nth-child(5) { transition-delay: 0.25s; }
+        #fan-stage .cards-container.layout-grid .step-card:nth-child(6) { transition-delay: 0.3s; }
+        #fan-stage .cards-container.layout-grid .step-card:nth-child(7) { transition-delay: 0.35s; }
+
+        .step-card.active-step {
+            opacity: 1;
+            transform: translate(-50%, -50%) translateY(0);
+        }
+
+        .step-card.fan-card {
+            transition: opacity 0.5s var(--ease-premium),
+                        transform 0.5s var(--ease-premium),
+                        box-shadow 0.35s var(--ease-premium);
+        }
+
+        .step-card.fan-card.fan-visible {
+            opacity: 1;
+        }
+
+        /* Card inner padding */
+        .step-card .step-card-preview {
+            padding: 1.75rem 1.5rem;
+            transition: opacity 0.25s var(--ease-premium);
+        }
+        .step-card .step-card-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 10px;
+            background: rgba(139, 92, 246, 0.15);
+            color: rgba(167, 139, 250, 0.95);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            margin-bottom: 1.25rem;
+        }
+        .step-card .step-card-tag {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(139, 92, 246, 0.9);
+            margin-bottom: 0.5rem;
+        }
+        .step-card h3 {
+            font-size: 1.375rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.25;
+            margin: 0 0 0.5rem;
+        }
+        .step-card .step-card-preview .card-desc {
+            font-size: 0.8125rem;
+            line-height: 1.5;
+            color: rgba(161, 161, 170, 0.95);
+        }
+        .step-card .step-card-arrow {
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: rgba(139, 92, 246, 0.8);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s var(--ease-premium), transform 0.3s var(--ease-premium);
+        }
+        .step-card:hover .step-card-arrow,
+        .step-card.is-hovered .step-card-arrow {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .step-card .step-card-full {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.4s var(--ease-premium), opacity 0.35s var(--ease-premium);
+        }
+        .step-card.is-hovered .step-card-full {
+            max-height: 260px;
+            opacity: 1;
+        }
+        .step-card .step-card-full-inner {
+            padding: 0 1.5rem 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            margin-top: 0;
+            padding-top: 1.25rem;
+        }
+        .step-card.is-hovered .step-card-full .step-card-full-inner {
+            margin-top: 0;
+        }
+        .step-card .step-card-full p {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: rgba(212, 212, 216, 0.95);
+            text-transform: none;
+            letter-spacing: 0.01em;
+            margin: 0;
+        }
+        .step-card.is-hovered {
+            z-index: 99;
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(139, 92, 246, 0.2);
+            box-shadow: 0 24px 56px rgba(0,0,0,0.35), 0 0 0 1px rgba(139, 92, 246, 0.15), 0 0 40px -8px rgba(139, 92, 246, 0.15);
+        }
+        .step-card.is-hovered::before {
+            opacity: 1;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
+        }
+        #fan-stage .cards-container.layout-grid .step-card.is-hovered {
+            transform: translateY(-8px) scale(1.02);
+        }
+        .step-card { cursor: pointer; }
+
+        /* Koraci procesa (1–5) — animacija prijelaza */
+        .process-step-item {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 90%;
+            max-width: 480px;
+            transform: translate(-50%, -50%) translateY(32px);
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .process-step-item.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) translateY(0);
+        }
+        .process-step-item .step-num {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+        .process-step-item h3 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .process-step-item p {
+            font-size: 1rem;
+            color: #a1a1aa;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        /* Progress traka kroz korake */
+        .steps-progress-bar {
+            position: absolute;
+            bottom: 5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 1px;
+            overflow: hidden;
+            z-index: 50;
+        }
+        .steps-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #6366f1);
+            border-radius: 1px;
+            transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .steps-dots {
+            position: absolute;
+            bottom: 5.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 50;
+        }
+        .steps-dots span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.4s ease, transform 0.4s ease;
+        }
+        .steps-dots span.active {
+            background: var(--accent);
+            transform: scale(1.3);
+            box-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--zinc-border);
+            padding: 1.2rem;
+            border-radius: 12px;
+            width: 100%;
+            outline: none;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff, #a78bfa, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+            transform: scale(1.02);
+        }
+
+        .logo-grayscale {
+            filter: grayscale(1) brightness(0.7) contrast(1.2);
+            transition: all 0.4s ease;
+            opacity: 0.5;
+        }
+        .logo-grayscale:hover {
+            filter: grayscale(0) brightness(1) contrast(1);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* Valoviti pattern — jedinstven, neponavljajući, statičan */
+        .bg-waves {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .bg-waves svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            opacity: 0.45;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-depth"></div>
+    <div class="grid-bg"></div>
+    <div class="bg-pattern"></div>
+    <div class="bg-waves" aria-hidden="true">
+        <svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="wave-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.15"/>
+                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="0.6"/>
+                    <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.15"/>
+                </linearGradient>
+                <filter id="wave-glow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+                    <feFlood flood-color="#8b5cf6" flood-opacity="0.4"/>
+                    <feComposite in2="blur" operator="in" result="glow"/>
+                    <feMerge>
+                        <feMergeNode in="glow"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            <g filter="url(#wave-glow)">
+                <!-- Svaka linija jedinstvena — različiti valni oblici, bez ponavljanja -->
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.9" stroke-linecap="round" d="M0,80 C80,45 180,55 280,75 C380,100 450,60 520,85 C620,110 720,70 800,90 C900,115 1000,75 1200,80"/>
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.85" stroke-linecap="round" d="M0,115 C120,85 220,130 320,110 C400,95 500,125 600,105 C700,88 820,118 920,100 C1020,82 1120,115 1200,108"/>
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.8" stroke-linecap="round" d="M0,148 C100,120 250,155 350,140 C480,120 550,165 650,145 C750,128 860,160 960,142 C1060,125 1150,155 1200,145"/>
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.9" stroke-linecap="round" d="M0,182 C90,155 200,195 310,175 C420,158 530,190 640,172 C740,158 850,198 950,178 C1050,162 1150,192 1200,180"/>
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.75" stroke-linecap="round" d="M0,218 C110,195 230,228 340,208 C460,185 560,220 670,202 C780,188 890,218 1000,200 C1100,185 1180,215 1200,210"/>
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.85" stroke-linecap="round" d="M0,252 C70,228 180,262 300,242 C420,222 520,258 620,238 C730,218 840,252 960,235 C1080,218 1160,248 1200,242"/>
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.8" stroke-linecap="round" d="M0,285 C150,255 280,292 400,272 C520,252 600,288 720,268 C840,248 950,282 1080,265 C1150,255 1200,278 1200,278"/>
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.7" stroke-opacity="0.9" stroke-linecap="round" d="M0,318 C80,295 200,328 320,308 C450,285 540,322 660,302 C780,282 880,318 1000,298 C1120,278 1180,312 1200,308"/>
+            </g>
+        </svg>
+    </div>
+
+    <!-- Navigacija -->
+    <nav class="fixed top-0 w-full z-[110] p-6 md:p-8">
+        <div class="max-w-screen-2xl mx-auto flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-black tracking-tighter">NMS<span class="text-violet-500">olux</span></a>
+            <div class="hidden md:flex gap-10 text-[10px] font-mono tracking-[0.2em] text-zinc-400 uppercase">
+                <a href="#hero" class="hover:text-white transition-colors">Početna</a>
+                <a href="#about" class="hover:text-white transition-colors">O studiju</a>
+                <a href="#services" class="hover:text-white transition-colors">Što gradimo</a>
+                <a href="#portfolio-process" class="hover:text-white transition-colors">Projekti</a>
+                <a href="#contact" class="hover:text-white transition-colors">Kontakt</a>
+            </div>
+            <a href="#contact" class="px-6 py-2.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all">
+                Kontakt
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="hero" class="min-h-screen flex flex-col justify-center items-center px-6 pt-20 hero-gradient relative">
+        <div class="max-w-5xl text-center z-10">
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-8 leading-[1.05] text-gradient">
+                Gradim skalabilne web i mobilne aplikacije.
+            </h1>
+            <p class="text-zinc-400 text-lg md:text-xl max-w-3xl mx-auto mb-6 leading-relaxed font-light">
+                Moderni digitalni proizvodi razvijeni brzo, čisto i spremni za rast.
+            </p>
+            <p class="text-zinc-500 text-base md:text-lg max-w-2xl mx-auto mb-14 leading-relaxed">
+                Radim s poduzetnicima, startupovima i tvrtkama koje žele funkcionalan proizvod — ne samo lijepu web stranicu.
+            </p>
+            <div class="flex flex-col md:flex-row gap-6 justify-center">
+                <a href="#contact" class="px-10 py-5 btn-primary font-black text-xs rounded-full tracking-widest uppercase">
+                    Pokrenimo projekt
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce opacity-30 text-violet-500">
+            <i data-lucide="mouse" class="w-6 h-6"></i>
+        </div>
+    </section>
+
+    <!-- Trusted by -->
+    <section class="py-20 border-y border-white/5 bg-white/[0.01]">
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="text-center text-[10px] font-mono tracking-[0.3em] text-zinc-500 uppercase mb-12">Rastuće tvrtke. Ambiciozni proizvodi.</p>
+            <div class="flex flex-wrap justify-center items-center gap-12 md:gap-24">
+                <div class="logo-grayscale flex items-center gap-2 cursor-default">
+                    <i data-lucide="code-2" class="w-6 h-6"></i>
+                    <span class="text-xl font-bold tracking-tighter">Custom</span>
+                </div>
+                <div class="logo-grayscale flex items-center gap-2 cursor-default">
+                    <i data-lucide="cloud" class="w-6 h-6"></i>
+                    <span class="text-xl font-bold tracking-tighter">SaaS</span>
+                </div>
+                <div class="logo-grayscale flex items-center gap-2 cursor-default">
+                    <i data-lucide="globe" class="w-6 h-6"></i>
+                    <span class="text-xl font-bold tracking-tighter">Web Apps</span>
+                </div>
+                <div class="logo-grayscale flex items-center gap-2 cursor-default">
+                    <i data-lucide="git-branch" class="w-6 h-6"></i>
+                    <span class="text-xl font-bold tracking-tighter">Sustavi</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- O studiju -->
+    <section id="about" class="py-40 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-24 items-center">
+            <div class="relative group">
+                <div class="aspect-[4/5] glass-panel p-3 overflow-hidden">
+                    <div class="w-full h-full rounded-[16px] bg-gradient-to-br from-violet-950/40 to-zinc-900 flex items-center justify-center">
+                        <i data-lucide="cpu" class="w-24 h-24 text-violet-500/40"></i>
+                    </div>
+                </div>
+                <div class="absolute -bottom-8 -right-8 glass-panel p-8 w-64 border-violet-500/30">
+                    <div class="text-violet-400 font-mono text-[9px] mb-2 tracking-widest uppercase">Tech_Studio</div>
+                    <div class="text-white text-lg font-bold tracking-tight uppercase">Founder-led</div>
+                    <div class="h-1 w-12 bg-violet-500 mt-4"></div>
+                </div>
+            </div>
+            <div>
+                <span class="text-violet-500 font-mono text-[11px] tracking-widest uppercase block mb-6">01 // O studiju</span>
+                <h2 class="text-6xl font-bold tracking-tighter mb-10 leading-tight">Ozbiljan pristup. <br>Bez nepotrebnih slojeva.</h2>
+                <p class="text-zinc-400 text-xl leading-relaxed mb-8">
+                    Manji broj klijenata, dugoročno. Fokus na proizvodima koji imaju smisla i koje možete održavati — bez rotirajućih timova i nepotrebnih slojeva.
+                </p>
+                <p class="text-zinc-500 text-lg leading-relaxed mb-12">
+                    Custom softver, SaaS i web aplikacije za rastuće tvrtke. Ne prodajemo sate; prodajemo isporuku i odgovornost. Tražite partnera koji razumije arhitekturu i skalabilnost? Sljedeći korak je razgovor.
+                </p>
+                <div class="grid grid-cols-2 gap-12">
+                    <div class="border-l border-zinc-800 pl-6">
+                        <div class="text-5xl font-bold text-white tracking-tighter mb-2">Custom</div>
+                        <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">Softver_&_SaaS</div>
+                    </div>
+                    <div class="border-l border-zinc-800 pl-6">
+                        <div class="text-5xl font-bold text-white tracking-tighter mb-2">Skalabilno</div>
+                        <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">Arhitektura</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Što gradimo (Usluge) -->
+    <section id="services" class="py-40 px-6 bg-zinc-950/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+                <div class="max-w-2xl">
+                    <span class="text-violet-500 font-mono text-[11px] tracking-widest uppercase">02 // Što gradimo</span>
+                    <h2 class="text-6xl font-bold tracking-tighter mt-6">Proizvodi i sustavi, ne samo stranice.</h2>
+                </div>
+                <div class="text-zinc-500 text-sm font-mono uppercase tracking-widest border-b border-zinc-800 pb-2">
+                    Proizvodnja od ideje do produkcije
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="glass-panel p-12 group">
+                    <div class="w-14 h-14 bg-violet-500/10 rounded-2xl flex items-center justify-center mb-10 group-hover:bg-violet-500 transition-all duration-500">
+                        <i data-lucide="code-2" class="text-violet-500 group-hover:text-white transition-colors w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-6">Custom softver</h3>
+                    <p class="text-zinc-500 text-base leading-relaxed mb-10">Aplikacije prilagođene vašem poslovanju: interni alati, klijentski portali, B2B sustavi.</p>
+                    <ul class="text-[11px] font-mono text-violet-400 space-y-3 uppercase tracking-tighter">
+                        <li>• Interni alati</li>
+                        <li>• Klijentski portali</li>
+                        <li>• B2B sustavi</li>
+                    </ul>
+                </div>
+                <div class="glass-panel p-12 group border-violet-500/20">
+                    <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-10 group-hover:bg-blue-500 transition-all duration-500">
+                        <i data-lucide="cloud" class="text-blue-500 group-hover:text-white transition-colors w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-6">SaaS proizvodi</h3>
+                    <p class="text-zinc-500 text-base leading-relaxed mb-10">Skalabilne platforme za pretplatu. Arhitektura, infrastruktura i dugoročno održavanje.</p>
+                    <ul class="text-[11px] font-mono text-blue-400 space-y-3 uppercase tracking-tighter">
+                        <li>• Multi-tenant</li>
+                        <li>• API & integracije</li>
+                        <li>• Održavanje</li>
+                    </ul>
+                </div>
+                <div class="glass-panel p-12 group">
+                    <div class="w-14 h-14 bg-zinc-500/10 rounded-2xl flex items-center justify-center mb-10 group-hover:bg-white transition-all duration-500">
+                        <i data-lucide="globe" class="text-zinc-400 group-hover:text-black transition-colors w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-6">Web aplikacije</h3>
+                    <p class="text-zinc-500 text-base leading-relaxed mb-10">Performantne i sigurne aplikacije — od MVP-ja do enterprise rješenja.</p>
+                    <ul class="text-[11px] font-mono text-zinc-400 space-y-3 uppercase tracking-tighter">
+                        <li>• Frontend & backend</li>
+                        <li>• Real-time</li>
+                        <li>• Održivost</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio / Proces (scroll): 5 koraka pa lepeza radova -->
+    <section id="portfolio-process">
+        <div class="process-sticky" id="stickyStage">
+            <div id="portfolio-header" class="absolute top-24 text-center transition-all duration-700 z-50">
+                <span class="text-violet-500 font-mono text-[11px] tracking-widest uppercase">03 // Proces & radovi</span>
+                <h2 class="text-5xl font-bold tracking-tighter mt-4">Kako radimo.</h2>
+            </div>
+
+            <!-- 5 koraka procesa (prikazuju se jedan po jedan) -->
+            <div id="process-steps-container" class="absolute inset-0 flex items-center justify-center z-40">
+                <div id="process-step-1" class="process-step-item">
+                    <div class="step-num">Korak 01</div>
+                    <h3>Dogovor</h3>
+                    <p>Ciljevi, scope i glavne stavke projekta. Jasno i na stolu.</p>
+                </div>
+                <div id="process-step-2" class="process-step-item">
+                    <div class="step-num">Korak 02</div>
+                    <h3>Arhitektura</h3>
+                    <p>Tehnička priprema, arhitektura sustava i plan implementacije.</p>
+                </div>
+                <div id="process-step-3" class="process-step-item">
+                    <div class="step-num">Korak 03</div>
+                    <h3>Demo i iteracije</h3>
+                    <p>Gradimo iterativno, s redovitim demo isporukama i provjerama.</p>
+                </div>
+                <div id="process-step-4" class="process-step-item">
+                    <div class="step-num">Korak 04</div>
+                    <h3>Poliranje</h3>
+                    <p>Finalne dorade, optimizacija i priprema za produkciju.</p>
+                </div>
+                <div id="process-step-5" class="process-step-item">
+                    <div class="step-num">Korak 05</div>
+                    <h3>Lansiranje</h3>
+                    <p>Deploy, nadzor i — po želji — dugoročno održavanje.</p>
+                </div>
+            </div>
+
+            <!-- Projekti: tabovi + jedan panel (kao na slici) -->
+            <div id="fan-stage" class="absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-700" style="z-index: 35;">
+                <div class="projects-tabbed" id="projectsTabbed">
+                    <div class="projects-tabs" id="projectsTabs" role="tablist"></div>
+                    <div class="project-panel" id="projectPanel">
+                        <div class="project-panel-image" id="projectPanelImage">
+                            <i data-lucide="folder-kanban"></i>
+                        </div>
+                        <div class="project-panel-body">
+                            <span class="project-panel-tag" id="projectPanelTag"></span>
+                            <h3 id="projectPanelTitle"></h3>
+                            <p class="project-panel-desc" id="projectPanelDesc"></p>
+                            <p class="project-panel-full" id="projectPanelFull"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress kroz korake: traka + točkice -->
+            <div id="steps-progress-wrap" class="absolute left-0 right-0 bottom-24 flex flex-col items-center gap-3 z-50">
+                <div class="steps-dots" id="steps-dots">
+                    <span data-step="1"></span>
+                    <span data-step="2"></span>
+                    <span data-step="3"></span>
+                    <span data-step="4"></span>
+                    <span data-step="5"></span>
+                </div>
+                <div class="steps-progress-bar">
+                    <div class="steps-progress-fill" id="steps-progress-fill" style="width: 20%"></div>
+                </div>
+                <div class="flex items-center gap-6 font-mono text-[10px] text-zinc-600">
+                    <span class="text-violet-500" id="sync-val">0</span> <span id="sync-label">Korak 1/5</span> <span class="w-12 h-[1px] bg-zinc-800"></span> NMSolux
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section id="contact" class="py-40 px-6">
+        <div class="max-w-7xl mx-auto glass-panel p-12 md:p-24 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-violet-600/10 blur-[120px] -z-10"></div>
+            <div class="grid md:grid-cols-2 gap-24">
+                <div>
+                    <h2 class="text-7xl font-bold tracking-tighter mb-10 text-gradient">Imate projekt? <br>Razgovarajmo.</h2>
+                    <p class="text-zinc-400 text-lg mb-16 leading-relaxed">Radimo na projektima koji imaju smisla. Opišite što planirate — odgovor u 24–48 sati.</p>
+                    <div class="space-y-12">
+                        <div>
+                            <div class="text-[10px] font-mono text-zinc-500 uppercase mb-4 tracking-widest">Email</div>
+                            <a href="mailto:hello@nmosolux.com" class="text-2xl font-bold hover:text-violet-400 transition-colors cursor-pointer underline decoration-zinc-800 underline-offset-8">hello@nmosolux.com</a>
+                        </div>
+                        <div>
+                            <div class="text-[10px] font-mono text-zinc-500 uppercase mb-4 tracking-widest">Društvene mreže</div>
+                            <div class="flex gap-8 mt-6">
+                                <a href="#" class="text-zinc-400 hover:text-violet-400 transition-all hover:scale-110" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                                <a href="#" class="text-zinc-400 hover:text-violet-400 transition-all hover:scale-110" aria-label="Twitter"><i data-lucide="twitter" class="w-6 h-6"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form class="space-y-8">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Ime</label>
+                            <input type="text" class="input-field" placeholder="Ime i prezime">
+                        </div>
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Email</label>
+                            <input type="email" class="input-field" placeholder="email@primjer.hr">
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Tip projekta</label>
+                        <select class="input-field appearance-none">
+                            <option>Custom softver</option>
+                            <option>SaaS / platforma</option>
+                            <option>Web aplikacija</option>
+                            <option>Digitalni sustav</option>
+                        </select>
+                    </div>
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Poruka</label>
+                        <textarea class="input-field h-40 resize-none" placeholder="Što planirate? Kratko opišite projekt."></textarea>
+                    </div>
+                    <button type="button" class="w-full py-6 btn-primary font-black text-xs rounded-xl tracking-widest uppercase">
+                        Pošalji
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 px-8 border-t border-zinc-900 text-center">
+        <div class="text-3xl font-black tracking-tighter mb-6">NMS<span class="text-violet-500">olux</span></div>
+        <div class="font-mono text-[10px] text-zinc-600 uppercase tracking-widest max-w-lg mx-auto leading-loose">
+            Tech studio — custom softver, SaaS, web aplikacije<br>
+            © <span id="footer-year">2026</span> NMSolux. Sva prava pridržana.
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+    <script>
+        const PROCESS_STEP_COUNT = 5;
+        const STEP_PROGRESS = 0.12;
+        const FAN_START = 0.60;
+        const FAN_END = 0.88;
+
+        const projects = [
+            { tag: "SaaS", title: "CloudCore SaaS", desc: "Multi-tenant arhitektura za B2B.", fullDesc: "Skalabilna multi-tenant arhitektura. Custom dashboard, API-ji i integracije. Razvoj u fazama s redovitim demo isporukama i dokumentacijom." },
+            { tag: "Custom", title: "OperaFlow", desc: "Platforma za upravljanje operacijama.", fullDesc: "Custom dashboard, API i integracije za B2B u logistici. Real-time narudžbe, izvještaji i automatizacije. Full-stack, 12 mjeseci." },
+            { tag: "Web App", title: "Analytics Hub", desc: "Real-time analitika za timove.", fullDesc: "Interni alat za analitiku i izvještaje (50+ korisnika). Vizualizacije, export PDF/Excel, prilagodljive metrike. 6 mjeseci." },
+            { tag: "Sustav", title: "B2B Portal", desc: "Klijentski portal s narudžbama.", fullDesc: "Portal s narudžbama, fakturiranjem i self-service accountom. Integracija s ERP-om, automatske ponude i praćenje isporuke. 8 mjeseci." },
+            { tag: "SaaS", title: "SubFlow", desc: "Pretplate i naplata za B2B.", fullDesc: "Upravljanje pretplatama i naplatom. Integracija s payment providerima, ponavljajuće fakture, self-service portal. API-first, 10 mjeseci." },
+            { tag: "Web App", title: "FieldTrack", desc: "Terenski timovi — mobilna app.", fullDesc: "Mobilna web aplikacija: evidencija posjeta, fotografije, potpisi, offline sync. PWA s geolokacijom i push obavijestima. 7 mjeseci." },
+            { tag: "Sustav", title: "DataPipe", desc: "ETL i integracija podataka.", fullDesc: "Pipeline za prikupljanje, transformaciju i sink iz više izvora. Scheduling, retry logika, monitoring. Python + React admin, 9 mjeseci." }
+        ];
+
+        const processStepsContainer = document.getElementById('process-steps-container');
+        const fanStage = document.getElementById('fan-stage');
+        const syncVal = document.getElementById('sync-val');
+        const syncLabel = document.getElementById('sync-label');
+        const portfolioHeader = document.getElementById('portfolio-header');
+        const stepsProgressFill = document.getElementById('steps-progress-fill');
+        const stepsDots = document.getElementById('steps-dots');
+        const stepsProgressWrap = document.getElementById('steps-progress-wrap');
+        const projectsTabs = document.getElementById('projectsTabs');
+        const projectPanelTag = document.getElementById('projectPanelTag');
+        const projectPanelTitle = document.getElementById('projectPanelTitle');
+        const projectPanelDesc = document.getElementById('projectPanelDesc');
+        const projectPanelFull = document.getElementById('projectPanelFull');
+
+        function renderProjectTabs() {
+            if (!projectsTabs || projectsTabs.children.length) return;
+            projects.forEach((proj, i) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.role = 'tab';
+                btn.textContent = proj.title;
+                btn.dataset.index = i;
+                if (i === 0) btn.classList.add('active');
+                btn.addEventListener('click', () => setActiveProject(i));
+                projectsTabs.appendChild(btn);
+            });
+        }
+        function setActiveProject(index) {
+            const proj = projects[index];
+            if (!proj) return;
+            projectsTabs.querySelectorAll('button').forEach((b, i) => b.classList.toggle('active', i === index));
+            projectPanelTag.textContent = proj.tag;
+            projectPanelTitle.textContent = proj.title;
+            projectPanelDesc.textContent = proj.desc;
+            projectPanelFull.textContent = proj.fullDesc;
+        }
+        renderProjectTabs();
+        setActiveProject(0);
+
+        function update() {
+            const portfolioSec = document.getElementById('portfolio-process');
+            const rect = portfolioSec.getBoundingClientRect();
+            const progress = Math.max(0, Math.min(1, -rect.top / (portfolioSec.offsetHeight - window.innerHeight)));
+
+            syncVal.textContent = (progress * 100).toFixed(0);
+            portfolioHeader.style.opacity = Math.max(0, 1 - progress * 3);
+            portfolioHeader.style.transform = `translateY(${progress * -50}px)`;
+
+            if (progress < FAN_START) {
+                processStepsContainer.style.opacity = '1';
+                processStepsContainer.style.pointerEvents = 'auto';
+                fanStage.style.opacity = '0';
+                fanStage.style.pointerEvents = 'none';
+                if (stepsProgressWrap) stepsProgressWrap.style.opacity = '1';
+
+                const stepIndex = Math.min(PROCESS_STEP_COUNT - 1, Math.floor(progress / STEP_PROGRESS)) || 0;
+                for (let k = 1; k <= PROCESS_STEP_COUNT; k++) {
+                    const el = document.getElementById(`process-step-${k}`);
+                    if (el) el.classList.toggle('active', k === stepIndex + 1);
+                }
+                if (stepsProgressFill) stepsProgressFill.style.width = ((stepIndex + 1) / PROCESS_STEP_COUNT * 100) + '%';
+                if (stepsDots) stepsDots.querySelectorAll('span').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === stepIndex);
+                });
+                syncLabel.textContent = 'Korak ' + (stepIndex + 1) + '/' + PROCESS_STEP_COUNT;
+            } else {
+                processStepsContainer.style.opacity = '0';
+                processStepsContainer.style.pointerEvents = 'none';
+                fanStage.style.opacity = '1';
+                fanStage.style.pointerEvents = 'auto';
+                if (stepsProgressFill) stepsProgressFill.style.width = '100%';
+                if (stepsDots) stepsDots.querySelectorAll('span').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === PROCESS_STEP_COUNT - 1);
+                });
+                syncLabel.textContent = 'Radovi';
+            }
+        }
+
+        window.addEventListener('scroll', update);
+        window.addEventListener('resize', update);
+        update();
+
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
