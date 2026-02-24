@@ -513,30 +513,89 @@
             transform: scale(1.05);
         }
 
-        /* Valoviti pattern — dinamične linije preko cijele stranice */
-        .bg-waves {
+        /* Proces u pozadini: Kod → Dizajn → Struktura DB — diskretno, ovisno o scrollu */
+        .bg-process {
             position: fixed;
             inset: 0;
             z-index: -1;
             pointer-events: none;
             overflow: hidden;
         }
-        .bg-waves svg {
+        .bg-process .process-layer {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        /* Faza 1: Kod — monospace / sintaksa, vidljivo */
+        .bg-process .process-layer[data-phase="kod"] {
+            background-image: 
+                linear-gradient(90deg, rgba(139, 92, 246, 0.12) 1px, transparent 1px),
+                linear-gradient(rgba(139, 92, 246, 0.12) 1px, transparent 1px);
+            background-size: 48px 28px;
+        }
+        .bg-process .process-layer[data-phase="kod"]::before {
+            content: "function ( ) { }  =>  const  < />  [ ]  .map  async  return";
+            position: absolute;
             left: 0;
-            object-fit: cover;
-            object-position: center;
-            opacity: 0.5;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            font-family: 'Fira Code', monospace;
+            font-size: clamp(0.55rem, 1.5vw, 0.85rem);
+            font-weight: 400;
+            color: rgba(139, 92, 246, 0.2);
+            word-break: break-all;
+            letter-spacing: 0.35em;
+            line-height: 3;
+            padding: 2rem;
+            white-space: pre-wrap;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 80px,
+                rgba(139, 92, 246, 0.04) 80px,
+                rgba(139, 92, 246, 0.04) 81px
+            );
         }
-        .bg-waves .wave-group {
-            animation: wave-drift 12s ease-in-out infinite;
+        /* Faza 2: Dizajn — grid / layout */
+        .bg-process .process-layer[data-phase="dizajn"] {
+            background-image:
+                linear-gradient(90deg, rgba(167, 139, 250, 0.14) 1px, transparent 1px),
+                linear-gradient(rgba(167, 139, 250, 0.14) 1px, transparent 1px);
+            background-size: 64px 64px;
         }
-        @keyframes wave-drift {
-            0%, 100% { transform: translateX(0) translateY(0); }
-            50% { transform: translateX(2%) translateY(1px); }
+        .bg-process .process-layer[data-phase="dizajn"]::before {
+            content: "";
+            position: absolute;
+            inset: 8%;
+            border: 1px solid rgba(167, 139, 250, 0.18);
+            border-radius: 12px;
+        }
+        .bg-process .process-layer[data-phase="dizajn"]::after {
+            content: "";
+            position: absolute;
+            inset: 18% 12% 25% 15%;
+            border: 1px solid rgba(167, 139, 250, 0.12);
+            border-radius: 8px;
+        }
+        /* Faza 3: Struktura DB — tablice / veze */
+        .bg-process .process-layer[data-phase="db"] {
+            background: transparent;
+        }
+        .bg-process .process-layer[data-phase="db"] .db-schema {
+            position: absolute;
+            inset: 0;
+            opacity: 1;
+        }
+        .bg-process .process-layer[data-phase="db"] .db-schema line {
+            stroke: rgba(139, 92, 246, 0.22);
+            stroke-width: 1;
+        }
+        .bg-process .process-layer[data-phase="db"] .db-schema rect {
+            fill: none;
+            stroke: rgba(139, 92, 246, 0.2);
+            stroke-width: 1;
         }
     </style>
 </head>
@@ -545,35 +604,23 @@
     <div class="bg-depth"></div>
     <div class="grid-bg"></div>
     <div class="bg-pattern"></div>
-    <div class="bg-waves" aria-hidden="true">
-        <svg viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <defs>
-                <linearGradient id="wave-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.12"/>
-                    <stop offset="50%" stop-color="#a78bfa" stop-opacity="0.65"/>
-                    <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.12"/>
-                </linearGradient>
-                <filter id="wave-glow" x="-20%" y="-30%" width="140%" height="160%">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
-                    <feFlood flood-color="#8b5cf6" flood-opacity="0.5"/>
-                    <feComposite in2="blur" operator="in" result="glow"/>
-                    <feMerge>
-                        <feMergeNode in="glow"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-            </defs>
-            <g class="wave-group" filter="url(#wave-glow)">
-                <!-- Grupa paralelnih linija blizu jedna drugoj — preko cijele širine -->
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="1.2" stroke-linecap="round" d="M0,50 C150,35 300,65 450,45 C600,70 750,40 900,55 C1050,60 1200,50"/>
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="1" stroke-linecap="round" d="M0,65 C120,50 280,75 420,58 C560,72 700,52 840,68 C980,62 1120,70 1200,65"/>
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="1.1" stroke-linecap="round" d="M0,80 C180,62 350,88 520,72 C690,85 860,68 1030,82 1200,78"/>
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.95" stroke-linecap="round" d="M0,95 C140,78 320,100 500,85 C680,92 860,80 1040,90 1200,95"/>
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="1.05" stroke-linecap="round" d="M0,110 C160,92 340,115 520,98 C700,108 880,95 1060,105 1200,110"/>
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.9" stroke-linecap="round" stroke-opacity="0.9" d="M0,125 C150,108 330,128 510,112 C690,122 870,110 1050,120 1200,125"/>
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="1" stroke-linecap="round" stroke-opacity="0.85" d="M0,140 C170,122 350,142 530,125 C710,135 890,122 1070,132 1200,138"/>
-            </g>
-        </svg>
+    <!-- Proces u pozadini: Kod → Dizajn → Struktura DB (diskretno, ovisno o scrollu) -->
+    <div class="bg-process" id="bgProcess" aria-hidden="true">
+        <div class="process-layer" data-phase="kod" id="processKod"></div>
+        <div class="process-layer" data-phase="dizajn" id="processDizajn"></div>
+        <div class="process-layer" data-phase="db" id="processDb">
+            <svg class="db-schema" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <rect x="15%" y="20%" width="140" height="80" rx="4"/>
+                <rect x="45%" y="25%" width="140" height="80" rx="4"/>
+                <rect x="75%" y="22%" width="140" height="80" rx="4"/>
+                <rect x="25%" y="55%" width="140" height="80" rx="4"/>
+                <rect x="55%" y="60%" width="140" height="80" rx="4"/>
+                <line x1="29%" y1="60%" x2="52%" y2="65%"/>
+                <line x1="59%" y1="65%" x2="82%" y2="62%"/>
+                <line x1="22%" y1="35%" x2="38%" y2="65%"/>
+                <line x1="52%" y1="35%" x2="62%" y2="60%"/>
+            </svg>
+        </div>
     </div>
 
     <!-- Navigacija -->
@@ -901,6 +948,29 @@
         const projectPanelTitle = document.getElementById('projectPanelTitle');
         const projectPanelDesc = document.getElementById('projectPanelDesc');
         const projectPanelFull = document.getElementById('projectPanelFull');
+        const processKod = document.getElementById('processKod');
+        const processDizajn = document.getElementById('processDizajn');
+        const processDb = document.getElementById('processDb');
+
+        function updateProcessBackground() {
+            const scrollY = window.scrollY || window.pageYOffset;
+            const docH = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docH <= 0 ? 0 : Math.max(0, Math.min(1, scrollY / docH));
+
+            let kodOp = 0, dizajnOp = 0, dbOp = 0;
+            if (progress < 0.25) kodOp = 1;
+            else if (progress < 0.45) kodOp = 1 - (progress - 0.25) / 0.2;
+            if (progress > 0.2 && progress < 0.4) dizajnOp = (progress - 0.2) / 0.2;
+            else if (progress >= 0.4 && progress <= 0.6) dizajnOp = 1;
+            else if (progress > 0.6 && progress < 0.8) dizajnOp = 1 - (progress - 0.6) / 0.2;
+            if (progress > 0.55 && progress < 0.75) dbOp = (progress - 0.55) / 0.2;
+            else if (progress >= 0.75) dbOp = 1;
+
+            const d = 0.55;
+            if (processKod) processKod.style.opacity = Math.max(0, Math.min(1, kodOp * d));
+            if (processDizajn) processDizajn.style.opacity = Math.max(0, Math.min(1, dizajnOp * d));
+            if (processDb) processDb.style.opacity = Math.max(0, Math.min(1, dbOp * d));
+        }
 
         function renderProjectTabs() {
             if (!projectsTabs || projectsTabs.children.length) return;
@@ -928,6 +998,7 @@
         setActiveProject(0);
 
         function update() {
+            updateProcessBackground();
             const portfolioSec = document.getElementById('portfolio-process');
             const rect = portfolioSec.getBoundingClientRect();
             const progress = Math.max(0, Math.min(1, -rect.top / (portfolioSec.offsetHeight - window.innerHeight)));
