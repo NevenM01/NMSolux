@@ -513,12 +513,13 @@
             transform: scale(1.05);
         }
 
-        /* Valoviti pattern — jedinstven, neponavljajući, statičan */
+        /* Valoviti pattern — dinamične linije preko cijele stranice */
         .bg-waves {
             position: fixed;
             inset: 0;
             z-index: -1;
             pointer-events: none;
+            overflow: hidden;
         }
         .bg-waves svg {
             position: absolute;
@@ -527,7 +528,15 @@
             top: 0;
             left: 0;
             object-fit: cover;
-            opacity: 0.45;
+            object-position: center;
+            opacity: 0.5;
+        }
+        .bg-waves .wave-group {
+            animation: wave-drift 12s ease-in-out infinite;
+        }
+        @keyframes wave-drift {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(2%) translateY(1px); }
         }
     </style>
 </head>
@@ -537,16 +546,16 @@
     <div class="grid-bg"></div>
     <div class="bg-pattern"></div>
     <div class="bg-waves" aria-hidden="true">
-        <svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
             <defs>
                 <linearGradient id="wave-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.15"/>
-                    <stop offset="50%" stop-color="#8b5cf6" stop-opacity="0.6"/>
-                    <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.15"/>
+                    <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.12"/>
+                    <stop offset="50%" stop-color="#a78bfa" stop-opacity="0.65"/>
+                    <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.12"/>
                 </linearGradient>
-                <filter id="wave-glow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
-                    <feFlood flood-color="#8b5cf6" flood-opacity="0.4"/>
+                <filter id="wave-glow" x="-20%" y="-30%" width="140%" height="160%">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+                    <feFlood flood-color="#8b5cf6" flood-opacity="0.5"/>
                     <feComposite in2="blur" operator="in" result="glow"/>
                     <feMerge>
                         <feMergeNode in="glow"/>
@@ -554,16 +563,15 @@
                     </feMerge>
                 </filter>
             </defs>
-            <g filter="url(#wave-glow)">
-                <!-- Svaka linija jedinstvena — različiti valni oblici, bez ponavljanja -->
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.9" stroke-linecap="round" d="M0,80 C80,45 180,55 280,75 C380,100 450,60 520,85 C620,110 720,70 800,90 C900,115 1000,75 1200,80"/>
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.85" stroke-linecap="round" d="M0,115 C120,85 220,130 320,110 C400,95 500,125 600,105 C700,88 820,118 920,100 C1020,82 1120,115 1200,108"/>
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.8" stroke-linecap="round" d="M0,148 C100,120 250,155 350,140 C480,120 550,165 650,145 C750,128 860,160 960,142 C1060,125 1150,155 1200,145"/>
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.9" stroke-linecap="round" d="M0,182 C90,155 200,195 310,175 C420,158 530,190 640,172 C740,158 850,198 950,178 C1050,162 1150,192 1200,180"/>
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.75" stroke-linecap="round" d="M0,218 C110,195 230,228 340,208 C460,185 560,220 670,202 C780,188 890,218 1000,200 C1100,185 1180,215 1200,210"/>
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.85" stroke-linecap="round" d="M0,252 C70,228 180,262 300,242 C420,222 520,258 620,238 C730,218 840,252 960,235 C1080,218 1160,248 1200,242"/>
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.8" stroke-linecap="round" d="M0,285 C150,255 280,292 400,272 C520,252 600,288 720,268 C840,248 950,282 1080,265 C1150,255 1200,278 1200,278"/>
-                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.7" stroke-opacity="0.9" stroke-linecap="round" d="M0,318 C80,295 200,328 320,308 C450,285 540,322 660,302 C780,282 880,318 1000,298 C1120,278 1180,312 1200,308"/>
+            <g class="wave-group" filter="url(#wave-glow)">
+                <!-- Grupa paralelnih linija blizu jedna drugoj — preko cijele širine -->
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="1.2" stroke-linecap="round" d="M0,50 C150,35 300,65 450,45 C600,70 750,40 900,55 C1050,60 1200,50"/>
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="1" stroke-linecap="round" d="M0,65 C120,50 280,75 420,58 C560,72 700,52 840,68 C980,62 1120,70 1200,65"/>
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="1.1" stroke-linecap="round" d="M0,80 C180,62 350,88 520,72 C690,85 860,68 1030,82 1200,78"/>
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.95" stroke-linecap="round" d="M0,95 C140,78 320,100 500,85 C680,92 860,80 1040,90 1200,95"/>
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="1.05" stroke-linecap="round" d="M0,110 C160,92 340,115 520,98 C700,108 880,95 1060,105 1200,110"/>
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="0.9" stroke-linecap="round" stroke-opacity="0.9" d="M0,125 C150,108 330,128 510,112 C690,122 870,110 1050,120 1200,125"/>
+                <path fill="none" stroke="url(#wave-grad)" stroke-width="1" stroke-linecap="round" stroke-opacity="0.85" d="M0,140 C170,122 350,142 530,125 C710,135 890,122 1070,132 1200,138"/>
             </g>
         </svg>
     </div>
