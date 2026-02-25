@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMSolux | Tech studio — custom softver, SaaS i web aplikacije</title>
-    <meta name="description" content="Custom softver, SaaS i web aplikacije za rastuće tvrtke. Proizvodi i sustavi koje možete održavati. Odgovornost, ne samo sate.">
+    <title>NMSolux. Custom softver, SaaS i web aplikacije</title>
+    <meta name="description" content="Custom softver, SaaS i web aplikacije. Od ideje do produkcije. Jedan projekt, puna pažnja. Proizvodi koje možete održavati i skalirati.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.0/lucide.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -512,6 +512,11 @@
             opacity: 1;
             transform: scale(1.05);
         }
+        .client-logo img {
+            max-height: 2rem;
+            width: auto;
+            object-fit: contain;
+        }
 
         /* Proces u pozadini: Kod → Dizajn → Struktura DB — diskretno, ovisno o scrollu */
         .bg-process {
@@ -629,9 +634,10 @@
             <a href="#hero" class="text-2xl font-black tracking-tighter">NMS<span class="text-violet-500">olux</span></a>
             <div class="hidden md:flex gap-10 text-[10px] font-mono tracking-[0.2em] text-zinc-400 uppercase">
                 <a href="#hero" class="hover:text-white transition-colors">Početna</a>
-                <a href="#about" class="hover:text-white transition-colors">O studiju</a>
+                <a href="#about" class="hover:text-white transition-colors">O meni</a>
                 <a href="#services" class="hover:text-white transition-colors">Što gradimo</a>
                 <a href="#portfolio-process" class="hover:text-white transition-colors">Projekti</a>
+                <a href="#testimonials" class="hover:text-white transition-colors">Testimonijali</a>
                 <a href="#contact" class="hover:text-white transition-colors">Kontakt</a>
             </div>
             <a href="#contact" class="px-6 py-2.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all">
@@ -644,13 +650,13 @@
     <section id="hero" class="min-h-screen flex flex-col justify-center items-center px-6 pt-20 hero-gradient relative">
         <div class="max-w-5xl text-center z-10">
             <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-8 leading-[1.05] text-gradient">
-                Gradim skalabilne web i mobilne aplikacije.
+                Gradimo softver koji raste s vama.
             </h1>
             <p class="text-zinc-400 text-lg md:text-xl max-w-3xl mx-auto mb-6 leading-relaxed font-light">
-                Moderni digitalni proizvodi razvijeni brzo, čisto i spremni za rast.
+                Custom softver, SaaS i web aplikacije. Od prototipa do produkcije. Bez posrednika i nepotrebnih slojeva.
             </p>
             <p class="text-zinc-500 text-base md:text-lg max-w-2xl mx-auto mb-14 leading-relaxed">
-                Radim s poduzetnicima, startupovima i tvrtkama koje žele funkcionalan proizvod — ne samo lijepu web stranicu.
+                Radimo s tvrtkama i startupovima koji traže pouzdanog partnera: isporuka, arhitektura i dugoročna održivost.
             </p>
             <div class="flex flex-col md:flex-row gap-6 justify-center">
                 <a href="#contact" class="px-10 py-5 btn-primary font-black text-xs rounded-full tracking-widest uppercase">
@@ -663,54 +669,30 @@
         </div>
     </section>
 
-    <!-- Trusted by -->
+    <!-- Trusted by — klijenti -->
     <section class="py-20 border-y border-white/5 bg-white/[0.01]">
         <div class="max-w-7xl mx-auto px-6">
-            <p class="text-center text-[10px] font-mono tracking-[0.3em] text-zinc-500 uppercase mb-12">Rastuće tvrtke. Ambiciozni proizvodi.</p>
-            <div class="flex flex-wrap justify-center items-center gap-12 md:gap-24">
-                <div class="logo-grayscale flex items-center gap-2 cursor-default">
-                    <i data-lucide="code-2" class="w-6 h-6"></i>
-                    <span class="text-xl font-bold tracking-tighter">Custom</span>
-                </div>
-                <div class="logo-grayscale flex items-center gap-2 cursor-default">
-                    <i data-lucide="cloud" class="w-6 h-6"></i>
-                    <span class="text-xl font-bold tracking-tighter">SaaS</span>
-                </div>
-                <div class="logo-grayscale flex items-center gap-2 cursor-default">
-                    <i data-lucide="globe" class="w-6 h-6"></i>
-                    <span class="text-xl font-bold tracking-tighter">Web Apps</span>
-                </div>
-                <div class="logo-grayscale flex items-center gap-2 cursor-default">
-                    <i data-lucide="git-branch" class="w-6 h-6"></i>
-                    <span class="text-xl font-bold tracking-tighter">Sustavi</span>
-                </div>
+            <p class="text-center text-[10px] font-mono tracking-[0.3em] text-zinc-500 uppercase mb-12">S kim radimo</p>
+            <div class="flex flex-wrap justify-center items-center gap-12 md:gap-24" id="client-logos">
+                <a href="#" class="client-logo logo-grayscale flex items-center text-xl font-bold tracking-tighter text-zinc-400 hover:text-white transition-colors" aria-label="Aqua Bili">Aqua Bili</a>
+                <a href="#" class="client-logo logo-grayscale flex items-center text-xl font-bold tracking-tighter text-zinc-400 hover:text-white transition-colors" aria-label="Villa Palazzina Burjaki">Villa Palazzina Burjaki</a>
             </div>
         </div>
     </section>
 
-    <!-- O studiju -->
+    <!-- O meni -->
     <section id="about" class="py-40 px-6">
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-24 items-center">
             <div class="relative group">
                 <div class="aspect-[4/5] glass-panel p-3 overflow-hidden">
-                    <div class="w-full h-full rounded-[16px] bg-gradient-to-br from-violet-950/40 to-zinc-900 flex items-center justify-center">
-                        <i data-lucide="cpu" class="w-24 h-24 text-violet-500/40"></i>
-                    </div>
-                </div>
-                <div class="absolute -bottom-8 -right-8 glass-panel p-8 w-64 border-violet-500/30">
-                    <div class="text-violet-400 font-mono text-[9px] mb-2 tracking-widest uppercase">Tech_Studio</div>
-                    <div class="text-white text-lg font-bold tracking-tight uppercase">Founder-led</div>
-                    <div class="h-1 w-12 bg-violet-500 mt-4"></div>
+                    <img src="assets/images/portrait.jpg" alt="" class="w-full h-full object-cover rounded-[16px]" width="400" height="500">
                 </div>
             </div>
             <div>
-                <span class="text-violet-500 font-mono text-[11px] tracking-widest uppercase block mb-6">01 // O studiju</span>
+                <span class="text-violet-500 font-mono text-[11px] tracking-widest uppercase block mb-6">01 // O meni</span>
                 <h2 class="text-6xl font-bold tracking-tighter mb-10 leading-tight">Ozbiljan pristup. <br>Bez nepotrebnih slojeva.</h2>
-                <p class="text-zinc-400 text-xl leading-relaxed mb-8">
-                    Manji broj klijenata, dugoročno. Fokus na proizvodima koji imaju smisla i koje možete održavati — bez rotirajućih timova i nepotrebnih slojeva.
-                </p>
-                <p class="text-zinc-500 text-lg leading-relaxed mb-12">
-                    Custom softver, SaaS i web aplikacije za rastuće tvrtke. Ne prodajemo sate; prodajemo isporuku i odgovornost. Tražite partnera koji razumije arhitekturu i skalabilnost? Sljedeći korak je razgovor.
+                <p class="text-zinc-400 text-xl leading-relaxed mb-12">
+                    Manji broj projekata, dugoročno. Jedan projekt. Puna pažnja. Bez posrednika i nepotrebnih slojeva.
                 </p>
                 <div class="grid grid-cols-2 gap-12">
                     <div class="border-l border-zinc-800 pl-6">
@@ -735,7 +717,7 @@
                     <h2 class="text-6xl font-bold tracking-tighter mt-6">Proizvodi i sustavi, ne samo stranice.</h2>
                 </div>
                 <div class="text-zinc-500 text-sm font-mono uppercase tracking-widest border-b border-zinc-800 pb-2">
-                    Proizvodnja od ideje do produkcije
+                    Od ideje do produkcije. Jedna odgovornost
                 </div>
             </div>
             <div class="grid md:grid-cols-3 gap-10">
@@ -744,7 +726,7 @@
                         <i data-lucide="code-2" class="text-violet-500 group-hover:text-white transition-colors w-6 h-6"></i>
                     </div>
                     <h3 class="text-3xl font-bold mb-6">Custom softver</h3>
-                    <p class="text-zinc-500 text-base leading-relaxed mb-10">Aplikacije prilagođene vašem poslovanju: interni alati, klijentski portali, B2B sustavi.</p>
+                    <p class="text-zinc-500 text-base leading-relaxed mb-10">Aplikacije prilagođene vašem poslovanju: interni alati, klijentski portali, B2B sustavi. Čisto i održivo.</p>
                     <ul class="text-[11px] font-mono text-violet-400 space-y-3 uppercase tracking-tighter">
                         <li>• Interni alati</li>
                         <li>• Klijentski portali</li>
@@ -756,7 +738,7 @@
                         <i data-lucide="cloud" class="text-blue-500 group-hover:text-white transition-colors w-6 h-6"></i>
                     </div>
                     <h3 class="text-3xl font-bold mb-6">SaaS proizvodi</h3>
-                    <p class="text-zinc-500 text-base leading-relaxed mb-10">Skalabilne platforme za pretplatu. Arhitektura, infrastruktura i dugoročno održavanje.</p>
+                    <p class="text-zinc-500 text-base leading-relaxed mb-10">Skalabilne platforme za pretplatu. Multi-tenant arhitektura, API-ji, infrastruktura i dugoročno održavanje.</p>
                     <ul class="text-[11px] font-mono text-blue-400 space-y-3 uppercase tracking-tighter">
                         <li>• Multi-tenant</li>
                         <li>• API & integracije</li>
@@ -768,7 +750,7 @@
                         <i data-lucide="globe" class="text-zinc-400 group-hover:text-black transition-colors w-6 h-6"></i>
                     </div>
                     <h3 class="text-3xl font-bold mb-6">Web aplikacije</h3>
-                    <p class="text-zinc-500 text-base leading-relaxed mb-10">Performantne i sigurne aplikacije — od MVP-ja do enterprise rješenja.</p>
+                    <p class="text-zinc-500 text-base leading-relaxed mb-10">Brze, sigurne aplikacije. Od MVP-ja do enterprise rješenja. Frontend, backend i real-time kad treba.</p>
                     <ul class="text-[11px] font-mono text-zinc-400 space-y-3 uppercase tracking-tighter">
                         <li>• Frontend & backend</li>
                         <li>• Real-time</li>
@@ -792,7 +774,7 @@
                 <div id="process-step-1" class="process-step-item">
                     <div class="step-num">Korak 01</div>
                     <h3>Dogovor</h3>
-                    <p>Ciljevi, scope i glavne stavke projekta. Jasno i na stolu.</p>
+                    <p>Ciljevi, opseg i ključne stavke. Sve na stolu.</p>
                 </div>
                 <div id="process-step-2" class="process-step-item">
                     <div class="step-num">Korak 02</div>
@@ -802,7 +784,7 @@
                 <div id="process-step-3" class="process-step-item">
                     <div class="step-num">Korak 03</div>
                     <h3>Demo i iteracije</h3>
-                    <p>Gradimo iterativno, s redovitim demo isporukama i provjerama.</p>
+                    <p>Gradimo u iteracijama, s redovitim demo isporukama.</p>
                 </div>
                 <div id="process-step-4" class="process-step-item">
                     <div class="step-num">Korak 04</div>
@@ -812,7 +794,7 @@
                 <div id="process-step-5" class="process-step-item">
                     <div class="step-num">Korak 05</div>
                     <h3>Lansiranje</h3>
-                    <p>Deploy, nadzor i — po želji — dugoročno održavanje.</p>
+                    <p>Deploy, nadzor i, po želji, dugoročno održavanje.</p>
                 </div>
             </div>
 
@@ -853,6 +835,30 @@
         </div>
     </section>
 
+    <!-- Testimonijali -->
+    <section id="testimonials" class="py-40 px-6 bg-zinc-950/30">
+        <div class="max-w-7xl mx-auto">
+            <span class="text-violet-500 font-mono text-[11px] tracking-widest uppercase block mb-6">04 // Testimonijali</span>
+            <h2 class="text-6xl font-bold tracking-tighter mb-20">Što kažu klijenti.</h2>
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="glass-panel p-10 md:p-12">
+                    <p class="text-zinc-300 text-lg leading-relaxed mb-8">„Jasna komunikacija, isporuka na vrijeme. Dobili smo točno ono što nam je trebalo — bez nepotrebnih slojeva.”</p>
+                    <div class="border-l border-violet-500/40 pl-6">
+                        <div class="text-white font-bold tracking-tight">Ime Prezime</div>
+                        <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest mt-1">Tvrtka / uloga</div>
+                    </div>
+                </div>
+                <div class="glass-panel p-10 md:p-12">
+                    <p class="text-zinc-300 text-lg leading-relaxed mb-8">„Profesionalan pristup od prvog razgovora do predaje. Preporučujem.”</p>
+                    <div class="border-l border-violet-500/40 pl-6">
+                        <div class="text-white font-bold tracking-tight">Ime Prezime</div>
+                        <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest mt-1">Tvrtka / uloga</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Kontakt -->
     <section id="contact" class="py-40 px-6">
         <div class="max-w-7xl mx-auto glass-panel p-12 md:p-24 relative overflow-hidden">
@@ -860,7 +866,7 @@
             <div class="grid md:grid-cols-2 gap-24">
                 <div>
                     <h2 class="text-7xl font-bold tracking-tighter mb-10 text-gradient">Imate projekt? <br>Razgovarajmo.</h2>
-                    <p class="text-zinc-400 text-lg mb-16 leading-relaxed">Radimo na projektima koji imaju smisla. Opišite što planirate — odgovor u 24–48 sati.</p>
+                    <p class="text-zinc-400 text-lg mb-16 leading-relaxed">Opišite što planirate. Odgovor u roku 24–48 sati.</p>
                     <div class="space-y-12">
                         <div>
                             <div class="text-[10px] font-mono text-zinc-500 uppercase mb-4 tracking-widest">Email</div>
@@ -910,7 +916,7 @@
     <footer class="py-20 px-8 border-t border-zinc-900 text-center">
         <div class="text-3xl font-black tracking-tighter mb-6">NMS<span class="text-violet-500">olux</span></div>
         <div class="font-mono text-[10px] text-zinc-600 uppercase tracking-widest max-w-lg mx-auto leading-loose">
-            Tech studio — custom softver, SaaS, web aplikacije<br>
+            Custom softver, SaaS, web aplikacije<br>
             © <span id="footer-year">2026</span> NMSolux. Sva prava pridržana.
         </div>
     </footer>
@@ -926,13 +932,8 @@
         const FAN_END = 0.88;
 
         const projects = [
-            { tag: "SaaS", title: "CloudCore SaaS", desc: "Multi-tenant arhitektura za B2B.", fullDesc: "Skalabilna multi-tenant arhitektura. Custom dashboard, API-ji i integracije. Razvoj u fazama s redovitim demo isporukama i dokumentacijom." },
-            { tag: "Custom", title: "OperaFlow", desc: "Platforma za upravljanje operacijama.", fullDesc: "Custom dashboard, API i integracije za B2B u logistici. Real-time narudžbe, izvještaji i automatizacije. Full-stack, 12 mjeseci." },
-            { tag: "Web App", title: "Analytics Hub", desc: "Real-time analitika za timove.", fullDesc: "Interni alat za analitiku i izvještaje (50+ korisnika). Vizualizacije, export PDF/Excel, prilagodljive metrike. 6 mjeseci." },
-            { tag: "Sustav", title: "B2B Portal", desc: "Klijentski portal s narudžbama.", fullDesc: "Portal s narudžbama, fakturiranjem i self-service accountom. Integracija s ERP-om, automatske ponude i praćenje isporuke. 8 mjeseci." },
-            { tag: "SaaS", title: "SubFlow", desc: "Pretplate i naplata za B2B.", fullDesc: "Upravljanje pretplatama i naplatom. Integracija s payment providerima, ponavljajuće fakture, self-service portal. API-first, 10 mjeseci." },
-            { tag: "Web App", title: "FieldTrack", desc: "Terenski timovi — mobilna app.", fullDesc: "Mobilna web aplikacija: evidencija posjeta, fotografije, potpisi, offline sync. PWA s geolokacijom i push obavijestima. 7 mjeseci." },
-            { tag: "Sustav", title: "DataPipe", desc: "ETL i integracija podataka.", fullDesc: "Pipeline za prikupljanje, transformaciju i sink iz više izvora. Scheduling, retry logika, monitoring. Python + React admin, 9 mjeseci." }
+            { tag: "Inventory", title: "Movyn", desc: "Multi-tenant aplikacija za praćenje zaliha, kretanja i receptura s planiranom integracijom vanjskog POS servisa.", fullDesc: "Web aplikacija za upravljanje zalihama u više tvrtki. Dashboard s upozorenjima na nisku zalihu, bilješke, proizvodi, povijest kretanja (ulaz/izlaz), upload računa i dnevne prodaje. Planirana integracija s vanjskim POS servisom za lakše upravljanje zalihama i automatizaciju unosa proizvoda. Recepture proizvoda i uloge za vlasnika i zaposlenike." },
+            { tag: "SaaS", title: "Moja ponudica", desc: "SaaS za izradu i upravljanje ponudama s predlošcima, pregledom i više korisnika.", fullDesc: "Web aplikacija za kreiranje i upravljanje ponudama (quotes). Nova ponuda, uređivanje, lista ponuda, detalj i pregled za klijenta. Predlošci ponuda za brzu izradu. Profil korisnika, uloge i admin panel: upravljanje korisnicima i pozivnicama." }
         ];
 
         const processStepsContainer = document.getElementById('process-steps-container');
