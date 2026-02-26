@@ -98,7 +98,7 @@
         }
 
         #portfolio-process {
-            height: 750vh;
+            height: 650vh;
             position: relative;
         }
 
@@ -110,7 +110,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow: visible;
         }
         /* Odabrani radovi: tabovi + jedan veliki panel (kao na slici) */
         #fan-stage .projects-tabbed {
@@ -173,12 +173,49 @@
             align-items: center;
             justify-content: center;
             padding: 2rem;
+            position: relative;
+            min-height: 200px;
+        }
+        .project-panel-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            position: absolute;
+            inset: 0;
+        }
+        .project-panel-image.has-image {
+            padding: 0;
         }
         .project-panel-image svg {
             width: 64px;
             height: 64px;
             opacity: 0.4;
             color: rgba(139, 92, 246, 0.8);
+        }
+        .project-panel-dots {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 2;
+        }
+        .project-panel-dots span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.35);
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .project-panel-dots span:hover {
+            background: rgba(255, 255, 255, 0.6);
+        }
+        .project-panel-dots span.active {
+            background: rgba(139, 92, 246, 0.95);
+            transform: scale(1.2);
         }
         .project-panel-body {
             padding: 2.25rem 2rem;
@@ -212,6 +249,29 @@
             line-height: 1.6;
             color: rgba(212, 212, 216, 0.9);
             margin: 0;
+        }
+        .project-panel-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: rgba(139, 92, 246, 0.95);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 12px;
+            text-decoration: none;
+            transition: background 0.25s var(--ease-premium), border-color 0.25s var(--ease-premium), color 0.25s var(--ease-premium);
+        }
+        .project-panel-link:hover {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: rgba(139, 92, 246, 0.6);
+            color: #fafafa;
+        }
+        .project-panel-link.hidden {
+            display: none;
         }
         @media (max-width: 768px) {
             .project-panel {
@@ -398,13 +458,21 @@
             text-align: center;
             opacity: 0;
             pointer-events: none;
+            padding: 2rem 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.02);
             transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+                        transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                        border-color 0.4s ease, box-shadow 0.4s ease;
         }
         .process-step-item.active {
             opacity: 1;
             pointer-events: auto;
             transform: translate(-50%, -50%) translateY(0);
+            z-index: 1;
+            border-color: rgba(139, 92, 246, 0.35);
+            box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.1), 0 8px 32px rgba(0, 0, 0, 0.2);
         }
         .process-step-item .step-num {
             font-family: 'Fira Code', monospace;
@@ -483,11 +551,43 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
+        .custom-select { position: relative; }
+        .custom-select-trigger { cursor: pointer; }
+        .custom-select-trigger:focus { border-color: var(--accent); background: rgba(255, 255, 255, 0.05); }
+        .custom-select.open .custom-select-arrow { transform: rotate(180deg); }
+        .custom-select-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 4px;
+            background: #0f0f10;
+            border: 1px solid var(--zinc-border);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            max-height: 240px;
+            overflow-y: auto;
+        }
+        .custom-select-option {
+            padding: 1rem 1.2rem;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .custom-select-option:hover,
+        .custom-select-option:focus {
+            background: rgba(139, 92, 246, 0.2);
+            outline: none;
+        }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
         .text-gradient {
-            background: linear-gradient(to right, #ffffff, #a78bfa, #60a5fa);
+            background: linear-gradient(to right, #ffffff 0%, #ffffff 20%, #c4b5fd 50%, #93c5fd 85%, #60a5fa 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            padding-bottom: 0.05em;
         }
 
         .btn-primary {
@@ -682,27 +782,22 @@
 
     <!-- O meni -->
     <section id="about" class="py-40 px-6">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-24 items-center">
-            <div class="relative group">
-                <div class="aspect-[4/5] glass-panel p-3 overflow-hidden">
-                    <img src="assets/images/portrait.jpg" alt="" class="w-full h-full object-cover rounded-[16px]" width="400" height="500">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-[0.7fr_1.3fr] gap-24 items-center">
+            <div class="relative group max-w-sm">
+                <div class="aspect-[4/5] glass-panel overflow-hidden p-0">
+                    <img src="assets/images/moja slika/F3B086F5-D536-4D07-91EC-A3A7025CFFC3-removebg-preview.png" alt="" class="w-full h-full object-cover object-[50%_25%] rounded-[24px]" width="400" height="500">
                 </div>
             </div>
             <div>
                 <span class="text-violet-500 font-mono text-[11px] tracking-widest uppercase block mb-6">01 // O meni</span>
-                <h2 class="text-6xl font-bold tracking-tighter mb-10 leading-tight">Ozbiljan pristup. <br>Bez nepotrebnih slojeva.</h2>
+                <h2 class="text-6xl font-bold tracking-tighter mb-10 leading-tight">Ja sam Neven.</h2>
                 <p class="text-zinc-400 text-xl leading-relaxed mb-12">
-                    Manji broj projekata, dugoročno. Jedan projekt. Puna pažnja. Bez posrednika i nepotrebnih slojeva.
+                    Uvijek me zanimalo sve oko računala i tehnologije. Krenuo sam istraživati, učiti i završio tečajeve. Imam certifikat Softrify Campaign (Bubble). To je bio početak, danas radimo na stvarnim projektima i sve više na sustavima: alati, aplikacije, integracije. Radimo s ljudima koji vjeruju u nove alate i traže cijela rješenja, ne samo web stranice.
                 </p>
-                <div class="grid grid-cols-2 gap-12">
-                    <div class="border-l border-zinc-800 pl-6">
-                        <div class="text-5xl font-bold text-white tracking-tighter mb-2">Custom</div>
-                        <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">Softver_&_SaaS</div>
-                    </div>
-                    <div class="border-l border-zinc-800 pl-6">
-                        <div class="text-5xl font-bold text-white tracking-tighter mb-2">Skalabilno</div>
-                        <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">Arhitektura</div>
-                    </div>
+                <div class="border-l border-zinc-800 pl-6">
+                    <div class="text-5xl font-bold text-white tracking-tighter mb-2">Certificiran</div>
+                    <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest mb-3">Softrify Campaign (Bubble)</div>
+                    <a href="assets/documents/certifikat.pdf" target="_blank" rel="noopener noreferrer" class="text-sm text-violet-400 hover:text-violet-300 transition-colors underline underline-offset-2">Pogledaj certifikat</a>
                 </div>
             </div>
         </div>
@@ -770,7 +865,7 @@
             </div>
 
             <!-- 5 koraka procesa (prikazuju se jedan po jedan) -->
-            <div id="process-steps-container" class="absolute inset-0 flex items-center justify-center z-40">
+            <div id="process-steps-container" class="absolute inset-0 flex items-center justify-center z-40 transition-opacity duration-500">
                 <div id="process-step-1" class="process-step-item">
                     <div class="step-num">Korak 01</div>
                     <h3>Dogovor</h3>
@@ -811,6 +906,7 @@
                             <h3 id="projectPanelTitle"></h3>
                             <p class="project-panel-desc" id="projectPanelDesc"></p>
                             <p class="project-panel-full" id="projectPanelFull"></p>
+                            <a id="projectPanelLink" href="#" target="_blank" rel="noopener" class="project-panel-link hidden" aria-label="Otvori projekt u novoj kartici">Pogledaj projekt <i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>
                         </div>
                     </div>
                 </div>
@@ -842,7 +938,7 @@
             <h2 class="text-6xl font-bold tracking-tighter mb-20">Što kažu klijenti.</h2>
             <div class="grid md:grid-cols-2 gap-10">
                 <div class="glass-panel p-10 md:p-12">
-                    <p class="text-zinc-300 text-lg leading-relaxed mb-8">„Jasna komunikacija, isporuka na vrijeme. Dobili smo točno ono što nam je trebalo — bez nepotrebnih slojeva.”</p>
+                    <p class="text-zinc-300 text-lg leading-relaxed mb-8">„Jasna komunikacija, isporuka na vrijeme. Dobili smo točno ono što nam je trebalo, bez nepotrebnih slojeva.”</p>
                     <div class="border-l border-violet-500/40 pl-6">
                         <div class="text-white font-bold tracking-tight">Ime Prezime</div>
                         <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest mt-1">Tvrtka / uloga</div>
@@ -866,46 +962,58 @@
             <div class="grid md:grid-cols-2 gap-24">
                 <div>
                     <h2 class="text-7xl font-bold tracking-tighter mb-10 text-gradient">Imate projekt? <br>Razgovarajmo.</h2>
-                    <p class="text-zinc-400 text-lg mb-16 leading-relaxed">Opišite što planirate. Odgovor u roku 24–48 sati.</p>
+                    <p class="text-zinc-400 text-lg mb-4 leading-relaxed">Opišite što planirate. Odgovor radnim danom u roku 24h.</p>
+                    <p class="text-zinc-500 text-sm mb-16 leading-relaxed">Npr.: što želite napraviti (aplikacija, web, sustav), okvirni rok ili budžet, imate li već dizajn ili specifikacije.</p>
                     <div class="space-y-12">
                         <div>
                             <div class="text-[10px] font-mono text-zinc-500 uppercase mb-4 tracking-widest">Email</div>
-                            <a href="mailto:hello@nmosolux.com" class="text-2xl font-bold hover:text-violet-400 transition-colors cursor-pointer underline decoration-zinc-800 underline-offset-8">hello@nmosolux.com</a>
+                            <a href="mailto:mulavdic.neven2001@gmail.com" class="text-2xl font-bold hover:text-violet-400 transition-colors cursor-pointer underline decoration-zinc-800 underline-offset-8">mulavdic.neven2001@gmail.com</a>
                         </div>
                         <div>
                             <div class="text-[10px] font-mono text-zinc-500 uppercase mb-4 tracking-widest">Društvene mreže</div>
                             <div class="flex gap-8 mt-6">
-                                <a href="#" class="text-zinc-400 hover:text-violet-400 transition-all hover:scale-110" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
-                                <a href="#" class="text-zinc-400 hover:text-violet-400 transition-all hover:scale-110" aria-label="Twitter"><i data-lucide="twitter" class="w-6 h-6"></i></a>
+                                <a href="https://www.linkedin.com/in/neven-mulavdic-11b937393/" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-violet-400 transition-all hover:scale-110" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <form class="space-y-8">
+                <form name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" class="space-y-8">
+                    <input type="hidden" name="form-name" value="contact">
+                    <p class="hidden">
+                        <label>Ne ispunjavaj: <input name="bot-field"></label>
+                    </p>
                     <div class="grid grid-cols-2 gap-6">
                         <div class="space-y-3">
-                            <label class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Ime</label>
-                            <input type="text" class="input-field" placeholder="Ime i prezime">
+                            <label class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest" for="contact-ime">Ime</label>
+                            <input id="contact-ime" type="text" name="ime" class="input-field" placeholder="Ime i prezime" required>
                         </div>
                         <div class="space-y-3">
-                            <label class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Email</label>
-                            <input type="email" class="input-field" placeholder="email@primjer.hr">
+                            <label class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest" for="contact-email">Email</label>
+                            <input id="contact-email" type="email" name="email" class="input-field" placeholder="email@primjer.hr" required>
                         </div>
                     </div>
                     <div class="space-y-3">
-                        <label class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Tip projekta</label>
-                        <select class="input-field appearance-none">
-                            <option>Custom softver</option>
-                            <option>SaaS / platforma</option>
-                            <option>Web aplikacija</option>
-                            <option>Digitalni sustav</option>
-                        </select>
+                        <label class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest" for="contact-tip">Tip projekta</label>
+                        <div class="custom-select" id="contact-tip-select">
+                            <input type="hidden" name="tip_projekta" value="custom-softver">
+                            <button type="button" class="custom-select-trigger input-field w-full flex items-center justify-between text-left" aria-haspopup="listbox" aria-expanded="false" id="contact-tip" aria-labelledby="contact-tip-label">
+                                <span class="custom-select-value">Custom softver</span>
+                                <i data-lucide="chevron-down" class="custom-select-arrow w-5 h-5 text-zinc-400 flex-shrink-0 transition-transform" aria-hidden="true"></i>
+                            </button>
+                            <span id="contact-tip-label" class="sr-only">Tip projekta</span>
+                            <div class="custom-select-list" role="listbox" id="contact-tip-listbox" aria-labelledby="contact-tip-label" hidden>
+                                <div class="custom-select-option" role="option" tabindex="0" data-value="custom-softver">Custom softver</div>
+                                <div class="custom-select-option" role="option" tabindex="0" data-value="saas">SaaS / platforma</div>
+                                <div class="custom-select-option" role="option" tabindex="0" data-value="web-aplikacija">Web aplikacija</div>
+                                <div class="custom-select-option" role="option" tabindex="0" data-value="digitalni-sustav">Digitalni sustav</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="space-y-3">
-                        <label class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Poruka</label>
-                        <textarea class="input-field h-40 resize-none" placeholder="Što planirate? Kratko opišite projekt."></textarea>
+                        <label class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest" for="contact-poruka">Poruka</label>
+                        <textarea id="contact-poruka" name="poruka" class="input-field h-40 resize-none" placeholder="Npr. trebam web aplikaciju za narudžbe, ciljani rok 3 mj., imam skice u Figmi. Ili: želimo sustav za praćenje zaliha, bez postojećeg dizajna." required></textarea>
                     </div>
-                    <button type="button" class="w-full py-6 btn-primary font-black text-xs rounded-xl tracking-widest uppercase">
+                    <button type="submit" class="w-full py-6 btn-primary font-black text-xs rounded-xl tracking-widest uppercase">
                         Pošalji
                     </button>
                 </form>
@@ -917,7 +1025,10 @@
         <div class="text-3xl font-black tracking-tighter mb-6">NMS<span class="text-violet-500">olux</span></div>
         <div class="font-mono text-[10px] text-zinc-600 uppercase tracking-widest max-w-lg mx-auto leading-loose">
             Custom softver, SaaS, web aplikacije<br>
-            © <span id="footer-year">2026</span> NMSolux. Sva prava pridržana.
+            © <span id="footer-year">2026</span> NMSolux. Sva prava pridržana.<br>
+            <a href="politika-privatnosti.html" class="text-zinc-500 hover:text-violet-400 transition-colors">Politika privatnosti</a>
+            <span class="text-zinc-700 mx-2">·</span>
+            <a href="politika-kolacica.html" class="text-zinc-500 hover:text-violet-400 transition-colors">Politika kolačića</a>
         </div>
     </footer>
 
@@ -926,14 +1037,69 @@
         lucide.createIcons();
     </script>
     <script>
+        (function () {
+            var sel = document.getElementById('contact-tip-select');
+            if (!sel) return;
+            var trigger = sel.querySelector('.custom-select-trigger');
+            var listbox = document.getElementById('contact-tip-listbox');
+            var valueEl = sel.querySelector('.custom-select-value');
+            var hiddenInput = sel.querySelector('input[name="tip_projekta"]');
+            var options = sel.querySelectorAll('.custom-select-option');
+
+            function open() {
+                sel.classList.add('open');
+                listbox.hidden = false;
+                trigger.setAttribute('aria-expanded', 'true');
+            }
+            function close() {
+                sel.classList.remove('open');
+                listbox.hidden = true;
+                trigger.setAttribute('aria-expanded', 'false');
+            }
+            function choose(value, label) {
+                hiddenInput.value = value;
+                valueEl.textContent = label;
+                close();
+            }
+
+            trigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (listbox.hidden) open(); else close();
+            });
+            document.addEventListener('click', function () {
+                if (!listbox.hidden) close();
+            });
+            listbox.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+            options.forEach(function (opt) {
+                opt.addEventListener('click', function () {
+                    choose(opt.getAttribute('data-value'), opt.textContent.trim());
+                });
+                opt.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        choose(opt.getAttribute('data-value'), opt.textContent.trim());
+                    }
+                });
+            });
+        })();
+    </script>
+    <script>
         const PROCESS_STEP_COUNT = 5;
         const STEP_PROGRESS = 0.12;
-        const FAN_START = 0.60;
-        const FAN_END = 0.88;
+        const FAN_START = 0.60;   /* show portfolio after step 5 (Lansiranje); step 5 needs progress 0.48–0.60 */
+        const FAN_EXIT = 0.50;    /* show steps again when scrolling up past this; step 5 visible on scroll-back */
+        /** Progress 0→1 over this many viewport heights; smaller = portfolio appears sooner (still in view) */
+        const PROGRESS_SCROLL_VH = 6;
 
+        // Za Villa Palazzina: dodaj hero.png (i po želji o-vili.png, sadrzaji.png, galerija.png, lokacija.png) u assets/images/palazzina-burjaki/ kad budu dostupne.
         const projects = [
-            { tag: "Inventory", title: "Movyn", desc: "Multi-tenant aplikacija za praćenje zaliha, kretanja i receptura s planiranom integracijom vanjskog POS servisa.", fullDesc: "Web aplikacija za upravljanje zalihama u više tvrtki. Dashboard s upozorenjima na nisku zalihu, bilješke, proizvodi, povijest kretanja (ulaz/izlaz), upload računa i dnevne prodaje. Planirana integracija s vanjskim POS servisom za lakše upravljanje zalihama i automatizaciju unosa proizvoda. Recepture proizvoda i uloge za vlasnika i zaposlenike." },
-            { tag: "SaaS", title: "Moja ponudica", desc: "SaaS za izradu i upravljanje ponudama s predlošcima, pregledom i više korisnika.", fullDesc: "Web aplikacija za kreiranje i upravljanje ponudama (quotes). Nova ponuda, uređivanje, lista ponuda, detalj i pregled za klijenta. Predlošci ponuda za brzu izradu. Profil korisnika, uloge i admin panel: upravljanje korisnicima i pozivnicama." }
+            { tag: "Sustav zaliha", title: "Movyn", desc: "Sustav za vlasnike i zaposlenike: praćenje zaliha, upozorenja kad nešto ponestane, proizvodi i recepture, povijest ulaza i izlaza, unos računa i prodaje.", fullDesc: "Vlasnik i zaposlenici vide stanje zaliha, bilješke i popis proizvoda, tko je što unio ili prodao, mogu unositi račune i dnevnu prodaju. Recepture za proizvode. Različite ovlasti za vlasnika i zaposlenike.", images: ["assets/images/movyn/Snimka zaslona 2026-02-26 003107.png"], link: "" },
+            { tag: "Ponude", title: "Moja ponudica", desc: "Sustav za izradu i upravljanje ponudama: nova ponuda, predlošci, lista ponuda, pregled za klijenta, više korisnika i pozivnice.", fullDesc: "Tim može raditi nove ponude, birati predloške, vidjeti listu ponuda i slati klijentu pregled. Postavke profila, više korisnika i upravljanje pozivnicama.", images: ["assets/images/moja-ponudica/final-moja ponudica.png"], imagesFallback: ["assets/images/moja-ponudica/dashboard.png", "assets/images/moja-ponudica/lista ponuda.png", "assets/images/moja-ponudica/nova ponuda.png", "assets/images/moja-ponudica/postavke.png", "assets/images/moja-ponudica/login.png"], link: "" },
+            { tag: "Aplikacija", title: "GymFlow", desc: "Aplikacija za teretane (vlasnici i članovi): vlasnici vide popunjenost i dolaske, članovi rezerviraju termine, dolaze po kodu, skupljaju bodove u manje gužve i otkupljuju nagrade.", fullDesc: "Vlasnici vide popunjenost i dolaske u živo, postavljaju termine i nagrade. Članovi rezerviraju termine, dobivaju kod za dolazak, bodove kada dođu u manje gužve i mogu otkupljivati nagrade u teretani.", images: ["assets/images/gymflow/final-gymflow.png"], imagesFallback: ["assets/images/gymflow/landing.png", "assets/images/gymflow/vlasnik.png", "assets/images/gymflow/clan.png"], link: "" },
+            { tag: "Prezentacijska stranica", title: "Villa Palazzina Burjaki", desc: "Prezentacijska stranica za vilu u Istri: više jezika, galerija soba i okoliša, sadržaji i lokacija, česta pitanja, recenzije i rezervacija.", fullDesc: "Stranica uključuje predstavljanje vile, sadržaje za goste (bazen, wellness, klima, zabava), galeriju prostora po kategorijama, lokaciju i upute (plaže, restorani, trgovine, prijevoz), česta pitanja, recenzije i mogućnost rezervacije.", images: ["assets/images/palazzina-burjaki/screencapture-palazzinaburjaki-2026-02-26-00_42_45.png"], link: "https://palazzinaburjaki.com" }
         ];
 
         const processStepsContainer = document.getElementById('process-steps-container');
@@ -945,10 +1111,14 @@
         const stepsDots = document.getElementById('steps-dots');
         const stepsProgressWrap = document.getElementById('steps-progress-wrap');
         const projectsTabs = document.getElementById('projectsTabs');
+        const projectPanelImage = document.getElementById('projectPanelImage');
         const projectPanelTag = document.getElementById('projectPanelTag');
         const projectPanelTitle = document.getElementById('projectPanelTitle');
         const projectPanelDesc = document.getElementById('projectPanelDesc');
         const projectPanelFull = document.getElementById('projectPanelFull');
+        const projectPanelLink = document.getElementById('projectPanelLink');
+        let currentProjectImageIndex = 0;
+        let showingFan = false;  /* hysteresis: once portfolio shown, keep it until scroll back past FAN_EXIT */
         const processKod = document.getElementById('processKod');
         const processDizajn = document.getElementById('processDizajn');
         const processDb = document.getElementById('processDb');
@@ -994,25 +1164,104 @@
             projectPanelTitle.textContent = proj.title;
             projectPanelDesc.textContent = proj.desc;
             projectPanelFull.textContent = proj.fullDesc;
+            if (projectPanelLink) {
+                if (proj.link) {
+                    projectPanelLink.href = proj.link;
+                    projectPanelLink.classList.remove('hidden');
+                    if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+                } else {
+                    projectPanelLink.href = '#';
+                    projectPanelLink.classList.add('hidden');
+                }
+            }
+
+            currentProjectImageIndex = 0;
+            if (!projectPanelImage) return;
+            let displayList = (proj.images && proj.images.length) ? proj.images : (proj.imagesFallback || []);
+            if (displayList.length > 0) {
+                projectPanelImage.classList.add('has-image');
+                projectPanelImage.innerHTML = '';
+                const img = document.createElement('img');
+                img.src = displayList[0];
+                img.alt = proj.title;
+                img.onerror = function() {
+                    if (proj.imagesFallback && proj.imagesFallback.length && displayList === proj.images) {
+                        displayList = proj.imagesFallback;
+                        img.src = displayList[0];
+                        img.onerror = null;
+                        if (displayList.length > 1) {
+                            const dots = document.createElement('div');
+                            dots.className = 'project-panel-dots';
+                            for (let i = 0; i < displayList.length; i++) {
+                                const span = document.createElement('span');
+                                span.role = 'button';
+                                span.setAttribute('aria-label', 'Slika ' + (i + 1));
+                                if (i === 0) span.classList.add('active');
+                                span.addEventListener('click', () => {
+                                    currentProjectImageIndex = i;
+                                    img.src = displayList[i];
+                                    dots.querySelectorAll('span').forEach((s, j) => s.classList.toggle('active', j === i));
+                                });
+                                dots.appendChild(span);
+                            }
+                            projectPanelImage.appendChild(dots);
+                        }
+                    }
+                };
+                projectPanelImage.appendChild(img);
+                if (displayList.length > 1) {
+                    const dots = document.createElement('div');
+                    dots.className = 'project-panel-dots';
+                    for (let i = 0; i < displayList.length; i++) {
+                        const span = document.createElement('span');
+                        span.role = 'button';
+                        span.setAttribute('aria-label', 'Slika ' + (i + 1));
+                        if (i === 0) span.classList.add('active');
+                        span.addEventListener('click', () => {
+                            currentProjectImageIndex = i;
+                            img.src = displayList[i];
+                            dots.querySelectorAll('span').forEach((s, j) => s.classList.toggle('active', j === i));
+                        });
+                        dots.appendChild(span);
+                    }
+                    projectPanelImage.appendChild(dots);
+                }
+            } else {
+                projectPanelImage.classList.remove('has-image');
+                projectPanelImage.innerHTML = '<i data-lucide="folder-kanban"></i>';
+                if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+            }
         }
         renderProjectTabs();
         setActiveProject(0);
 
+        let updateScheduled = false;
         function update() {
+            if (updateScheduled) return;
+            updateScheduled = true;
+            requestAnimationFrame(function() {
+                updateScheduled = false;
+                updateNow();
+            });
+        }
+        function updateNow() {
             updateProcessBackground();
             const portfolioSec = document.getElementById('portfolio-process');
+            if (!portfolioSec) return;
             const rect = portfolioSec.getBoundingClientRect();
-            const progress = Math.max(0, Math.min(1, -rect.top / (portfolioSec.offsetHeight - window.innerHeight)));
+            const progressRange = PROGRESS_SCROLL_VH * window.innerHeight;
+            const progress = rect.top > 0 ? 0 : Math.min(1, -rect.top / progressRange);
 
-            syncVal.textContent = (progress * 100).toFixed(0);
-            portfolioHeader.style.opacity = Math.max(0, 1 - progress * 3);
-            portfolioHeader.style.transform = `translateY(${progress * -50}px)`;
+            if (syncVal) syncVal.textContent = (progress * 100).toFixed(0);
+            if (portfolioHeader) portfolioHeader.style.opacity = Math.max(0, 1 - progress * 3);
+            if (portfolioHeader) portfolioHeader.style.transform = `translateY(${progress * -50}px)`;
 
-            if (progress < FAN_START) {
-                processStepsContainer.style.opacity = '1';
-                processStepsContainer.style.pointerEvents = 'auto';
-                fanStage.style.opacity = '0';
-                fanStage.style.pointerEvents = 'none';
+            if (progress >= FAN_START) showingFan = true;
+            else if (progress <= FAN_EXIT) showingFan = false;
+
+            if (!showingFan) {
+                if (processStepsContainer) { processStepsContainer.style.opacity = '1'; processStepsContainer.style.pointerEvents = 'auto'; }
+                if (fanStage) { fanStage.style.opacity = '0'; fanStage.style.pointerEvents = 'none'; }
                 if (stepsProgressWrap) stepsProgressWrap.style.opacity = '1';
 
                 const stepIndex = Math.min(PROCESS_STEP_COUNT - 1, Math.floor(progress / STEP_PROGRESS)) || 0;
@@ -1024,23 +1273,21 @@
                 if (stepsDots) stepsDots.querySelectorAll('span').forEach((dot, i) => {
                     dot.classList.toggle('active', i === stepIndex);
                 });
-                syncLabel.textContent = 'Korak ' + (stepIndex + 1) + '/' + PROCESS_STEP_COUNT;
+                if (syncLabel) syncLabel.textContent = 'Korak ' + (stepIndex + 1) + '/' + PROCESS_STEP_COUNT;
             } else {
-                processStepsContainer.style.opacity = '0';
-                processStepsContainer.style.pointerEvents = 'none';
-                fanStage.style.opacity = '1';
-                fanStage.style.pointerEvents = 'auto';
+                if (processStepsContainer) { processStepsContainer.style.opacity = '0'; processStepsContainer.style.pointerEvents = 'none'; }
+                if (fanStage) { fanStage.style.opacity = '1'; fanStage.style.pointerEvents = 'auto'; }
                 if (stepsProgressFill) stepsProgressFill.style.width = '100%';
                 if (stepsDots) stepsDots.querySelectorAll('span').forEach((dot, i) => {
                     dot.classList.toggle('active', i === PROCESS_STEP_COUNT - 1);
                 });
-                syncLabel.textContent = 'Radovi';
+                if (syncLabel) syncLabel.textContent = 'Radovi';
             }
         }
 
-        window.addEventListener('scroll', update);
+        window.addEventListener('scroll', update, { passive: true });
         window.addEventListener('resize', update);
-        update();
+        updateNow();
 
         document.getElementById('footer-year').textContent = new Date().getFullYear();
     </script>
