@@ -379,6 +379,105 @@
                 min-height: 160px;
             }
         }
+        .projects-tabs-mobile {
+            display: none;
+            width: 100%;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 25;
+            overflow: visible;
+        }
+        .projects-dropdown {
+            position: relative;
+            width: 100%;
+        }
+        .projects-dropdown-trigger {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #fafafa;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            min-height: 48px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+        .projects-dropdown-trigger:focus {
+            outline: none;
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+        .projects-dropdown-trigger[aria-expanded="true"] i {
+            transform: rotate(180deg);
+        }
+        .projects-dropdown-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 4px;
+            background: #0f0f12 !important;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            max-height: 280px;
+            overflow-y: auto;
+            z-index: 100;
+        }
+        .projects-dropdown-list [role="option"] {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            color: #fafafa !important;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.15s ease;
+        }
+        .projects-dropdown-list [role="option"]:hover,
+        .projects-dropdown-list [role="option"]:focus {
+            background: rgba(139, 92, 246, 0.2);
+            outline: none;
+        }
+        .projects-dropdown-list [role="option"][aria-selected="true"] {
+            background: rgba(139, 92, 246, 0.25);
+            color: #fafafa;
+        }
+        #fan-stage .projects-tabbed {
+            overflow: visible;
+        }
+        @media (max-width: 768px) {
+            #fan-stage .projects-tabbed {
+                align-items: stretch;
+                justify-content: flex-start;
+                padding-top: 5rem;
+                padding-bottom: 3rem;
+            }
+            .projects-tabs-mobile {
+                display: block;
+            }
+            .projects-tabs {
+                display: none;
+            }
+        }
+        @media (max-width: 480px) {
+            .projects-dropdown-trigger {
+                padding: 0.65rem 0.75rem;
+                font-size: 0.8125rem;
+            }
+            .projects-dropdown-list [role="option"] {
+                padding: 0.65rem 0.75rem;
+                font-size: 0.8125rem;
+            }
+        }
 
         .step-card {
             position: absolute;
@@ -873,6 +972,11 @@
             line-height: 1.4;
             color: #fafafa;
         }
+
+        /* Kontakt sekcija – mobile overflow zaštita */
+        #contact .glass-panel { max-width: 100%; }
+        #contact h2 { word-wrap: break-word; }
+        #contact a[href^="mailto:"] { word-break: break-all; }
     </style>
 </head>
 <body>
@@ -1074,6 +1178,15 @@
             <!-- Projekti: tabovi + jedan panel (kao na slici) -->
             <div id="fan-stage" class="absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-700" style="z-index: 35;">
                 <div class="projects-tabbed" id="projectsTabbed">
+                    <div class="projects-tabs-mobile" id="projectsTabsMobile" aria-hidden="true">
+                        <div class="projects-dropdown" id="projectsDropdown">
+                            <button type="button" class="projects-dropdown-trigger" id="projectsDropdownTrigger" aria-expanded="false" aria-haspopup="listbox" aria-label="Odaberi projekt">
+                                <span id="projectsDropdownLabel">Movyn</span>
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 transition-transform" aria-hidden="true"></i>
+                            </button>
+                            <div class="projects-dropdown-list" id="projectsDropdownList" role="listbox" aria-hidden="true" hidden></div>
+                        </div>
+                    </div>
                     <div class="projects-tabs" id="projectsTabs" role="tablist"></div>
                     <div class="project-panel" id="projectPanel">
                         <div class="project-panel-image" id="projectPanelImage">
@@ -1171,18 +1284,18 @@
     </section>
 
     <!-- Kontakt -->
-    <section id="contact" class="py-40 px-6">
-        <div class="max-w-7xl mx-auto glass-panel p-12 md:p-24 relative overflow-hidden">
+    <section id="contact" class="py-40 px-6 overflow-x-hidden">
+        <div class="max-w-7xl min-w-0 mx-auto glass-panel p-6 sm:p-8 md:p-12 lg:p-24 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-96 h-96 bg-violet-600/10 blur-[120px] -z-10"></div>
             <div class="grid md:grid-cols-2 gap-24">
-                <div>
-                    <h2 class="text-7xl font-bold tracking-tighter mb-10 text-gradient">Imate problem koji treba rješenje?</h2>
+                <div class="min-w-0">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter mb-10 text-gradient break-words">Imate problem koji treba rješenje?</h2>
                     <p class="text-zinc-400 text-lg mb-4 leading-relaxed">Opišite što trebate. Odgovaram unutar 24 sata s konkretnom procjenom roka i cijene.</p>
                     <p class="text-zinc-500 text-sm mb-16 leading-relaxed">Npr.: 'Trebam sustav za praćenje zaliha gdje vlasnik i zaposlenici vide real-time stanje.' Ili: 'Želimo portal gdje klijenti sami generiraju ponude.'</p>
                     <div class="space-y-12">
                         <div>
                             <div class="text-[10px] font-mono text-zinc-500 uppercase mb-4 tracking-widest">Email</div>
-                            <a href="mailto:mulavdic.neven2001@gmail.com" class="text-2xl font-bold hover:text-violet-400 transition-colors cursor-pointer underline decoration-zinc-800 underline-offset-8">mulavdic.neven2001@gmail.com</a>
+                            <a href="mailto:mulavdic.neven2001@gmail.com" class="text-lg sm:text-2xl font-bold hover:text-violet-400 transition-colors cursor-pointer underline decoration-zinc-800 underline-offset-8 break-all">mulavdic.neven2001@gmail.com</a>
                         </div>
                         <div>
                             <div class="text-[10px] font-mono text-zinc-500 uppercase mb-4 tracking-widest">Društvene mreže</div>
@@ -1192,12 +1305,12 @@
                         </div>
                     </div>
                 </div>
-                <form name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" class="space-y-8">
+                <form name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" class="space-y-8 min-w-0">
                     <input type="hidden" name="form-name" value="contact">
                     <p class="hidden">
                         <label>Ne ispunjavaj: <input name="bot-field"></label>
                     </p>
-                    <div class="grid grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div class="space-y-3">
                             <label class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest" for="contact-ime">Ime</label>
                             <input id="contact-ime" type="text" name="ime" class="input-field" placeholder="Ime i prezime" required>
@@ -1381,7 +1494,7 @@
     <script>
         const PROCESS_STEP_COUNT = 5;
         const STEP_PROGRESS = 0.12;
-        const FAN_START = 0.60;   /* show portfolio after step 5 (Lansiranje); step 5 needs progress 0.48–0.60 */
+        const FAN_START = 0.38;   /* show portfolio early so Movyn dropdown is clickable when section is in view */
         const FAN_EXIT = 0.50;    /* show steps again when scrolling up past this; step 5 visible on scroll-back */
         /** Progress 0→1 over this many viewport heights; smaller = portfolio appears sooner (still in view) */
         const PROGRESS_SCROLL_VH = 6;
@@ -1402,6 +1515,7 @@
         const stepsProgressFill = document.getElementById('steps-progress-fill');
         const stepsDots = document.getElementById('steps-dots');
         const stepsProgressWrap = document.getElementById('steps-progress-wrap');
+        const projectsDropdown = document.getElementById('projectsDropdown');
         const projectsTabs = document.getElementById('projectsTabs');
         const projectPanelImage = document.getElementById('projectPanelImage');
         const projectPanelTag = document.getElementById('projectPanelTag');
@@ -1447,11 +1561,65 @@
                 btn.addEventListener('click', () => setActiveProject(i));
                 projectsTabs.appendChild(btn);
             });
+            var dropdownTrigger = document.getElementById('projectsDropdownTrigger');
+            var dropdownList = document.getElementById('projectsDropdownList');
+            var dropdownLabel = document.getElementById('projectsDropdownLabel');
+            if (dropdownTrigger && dropdownList && dropdownLabel) {
+                projects.forEach(function(proj, i) {
+                    var opt = document.createElement('button');
+                    opt.type = 'button';
+                    opt.role = 'option';
+                    opt.textContent = proj.title;
+                    opt.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+                    opt.dataset.index = String(i);
+                    opt.addEventListener('click', function() {
+                        setActiveProject(i);
+                        dropdownList.setAttribute('hidden', '');
+                        dropdownList.setAttribute('aria-hidden', 'true');
+                        dropdownTrigger.setAttribute('aria-expanded', 'false');
+                        dropdownList.querySelectorAll('[role="option"]').forEach(function(o, j) {
+                            o.setAttribute('aria-selected', j === i ? 'true' : 'false');
+                        });
+                    });
+                    dropdownList.appendChild(opt);
+                });
+                function toggleDropdown() {
+                    var isOpen = dropdownList.getAttribute('hidden') === null;
+                    if (isOpen) {
+                        dropdownList.setAttribute('hidden', '');
+                        dropdownList.setAttribute('aria-hidden', 'true');
+                        dropdownTrigger.setAttribute('aria-expanded', 'false');
+                    } else {
+                        dropdownList.removeAttribute('hidden');
+                        dropdownList.setAttribute('aria-hidden', 'false');
+                        dropdownTrigger.setAttribute('aria-expanded', 'true');
+                    }
+                }
+                projectsDropdown.addEventListener('click', function(e) {
+                    if (dropdownList.contains(e.target)) return;
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleDropdown();
+                });
+                document.addEventListener('click', function(e) {
+                    if (dropdownList.getAttribute('hidden') === null && !projectsDropdown.contains(e.target)) {
+                        dropdownList.setAttribute('hidden', '');
+                        dropdownList.setAttribute('aria-hidden', 'true');
+                        dropdownTrigger.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
         }
         function setActiveProject(index) {
             const proj = projects[index];
             if (!proj) return;
             projectsTabs.querySelectorAll('button').forEach((b, i) => b.classList.toggle('active', i === index));
+            var dropdownLabel = document.getElementById('projectsDropdownLabel');
+            if (dropdownLabel) dropdownLabel.textContent = proj.title;
+            var dropdownList = document.getElementById('projectsDropdownList');
+            if (dropdownList) dropdownList.querySelectorAll('[role="option"]').forEach(function(o, j) {
+                o.setAttribute('aria-selected', j === index ? 'true' : 'false');
+            });
             projectPanelTag.textContent = proj.tag;
             projectPanelTitle.textContent = proj.title;
             projectPanelDesc.textContent = proj.desc;
@@ -1553,8 +1721,9 @@
 
             if (!showingFan) {
                 if (processStepsContainer) { processStepsContainer.style.opacity = '1'; processStepsContainer.style.pointerEvents = 'auto'; }
-                if (fanStage) { fanStage.style.opacity = '0'; fanStage.style.pointerEvents = 'none'; }
-                if (stepsProgressWrap) stepsProgressWrap.style.opacity = '1';
+                if (fanStage) { fanStage.style.opacity = '0'; fanStage.style.pointerEvents = 'none'; fanStage.style.zIndex = '35'; }
+                if (projectsDropdown) projectsDropdown.style.pointerEvents = '';
+                if (stepsProgressWrap) { stepsProgressWrap.style.opacity = '1'; stepsProgressWrap.style.display = 'flex'; }
 
                 const stepIndex = Math.min(PROCESS_STEP_COUNT - 1, Math.floor(progress / STEP_PROGRESS)) || 0;
                 for (let k = 1; k <= PROCESS_STEP_COUNT; k++) {
@@ -1568,7 +1737,9 @@
                 if (syncLabel) syncLabel.textContent = 'Korak ' + (stepIndex + 1) + '/' + PROCESS_STEP_COUNT;
             } else {
                 if (processStepsContainer) { processStepsContainer.style.opacity = '0'; processStepsContainer.style.pointerEvents = 'none'; }
-                if (fanStage) { fanStage.style.opacity = '1'; fanStage.style.pointerEvents = 'auto'; }
+                if (fanStage) { fanStage.style.opacity = '1'; fanStage.style.pointerEvents = 'auto'; fanStage.style.zIndex = '45'; }
+                if (projectsDropdown) projectsDropdown.style.pointerEvents = 'auto';
+                if (stepsProgressWrap) stepsProgressWrap.style.display = 'none';
                 if (stepsProgressFill) stepsProgressFill.style.width = '100%';
                 if (stepsDots) stepsDots.querySelectorAll('span').forEach((dot, i) => {
                     dot.classList.toggle('active', i === PROCESS_STEP_COUNT - 1);
