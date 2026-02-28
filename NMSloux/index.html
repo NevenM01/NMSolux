@@ -773,6 +773,32 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
+        .testimonial-quote-expandable {
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: none;
+        }
+        .testimonial-quote-expandable.is-expanded {
+            -webkit-line-clamp: unset;
+            display: block;
+        }
+        .testimonial-toggle {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: rgb(167, 139, 250);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        .testimonial-toggle:hover {
+            color: rgb(196, 181, 253);
+        }
+
         .custom-select { position: relative; }
         .custom-select-trigger { cursor: pointer; }
         .custom-select-trigger:focus { border-color: var(--accent); background: rgba(255, 255, 255, 0.05); }
@@ -1227,7 +1253,7 @@
         <div class="max-w-7xl mx-auto">
             <span class="text-violet-500 font-mono text-[11px] tracking-widest uppercase block mb-6">04 // Testimonijali</span>
             <h2 class="text-6xl font-bold tracking-tighter mb-20">Što kažu klijenti.</h2>
-            <div class="grid md:grid-cols-2 gap-10">
+            <div class="grid md:grid-cols-3 gap-10">
                 <div class="glass-panel p-10 md:p-12">
                     <p class="text-zinc-300 text-lg leading-relaxed mb-8">„Tražili smo prilagođeno rješenje i jasan proces. Suradnja je bila transparentna i bez stresa, s redovitim updateima. Zadovoljni smo i rezultatom i isporukom. Preporučujem.”</p>
                     <div class="border-l border-violet-500/40 pl-6 space-y-1">
@@ -1235,6 +1261,18 @@
                         <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">Aqua Bili</div>
                         <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">Pozicija: Vlasnik</div>
                         <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">Naziv projekta: Moja ponudica</div>
+                    </div>
+                </div>
+                <div class="glass-panel p-10 md:p-12">
+                    <div class="mb-8">
+                        <p id="testimonial-palazzina-quote" class="text-zinc-300 text-lg leading-relaxed testimonial-quote-expandable">„Prije početka projekta imali smo zastarjelu web tehnologiju koja nije jasno prikazivala našu ponudu ni vizualni identitet objekta. Proces suradnje bio je vrlo profesionalan, brz i konkretan – komunikacija je bila jasna, a svi prijedlozi i dorade odrađeni su u dogovorenim rokovima. Rezultatom smo izuzetno zadovoljni jer stranica sada izgleda moderno, pregledno i u potpunosti predstavlja Palazzinu Burjaki na način koji smo željeli.”</p>
+                        <button type="button" id="testimonial-palazzina-toggle" class="testimonial-toggle" aria-expanded="false">Vidi više</button>
+                    </div>
+                    <div class="border-l border-violet-500/40 pl-6 space-y-1">
+                        <div class="text-white font-bold tracking-tight">Vedran G.</div>
+                        <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">Villa Palazzina Burjaki</div>
+                        <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">Pozicija: Vlasnik</div>
+                        <div class="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">Naziv projekta: Prezentacijska stranica</div>
                     </div>
                 </div>
                 <div class="glass-panel border border-violet-500/30 bg-violet-500/5 p-10 md:p-12">
@@ -1761,6 +1799,17 @@
         updateNow();
 
         document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+        (function testimonialPalazzinaToggle() {
+            var quote = document.getElementById('testimonial-palazzina-quote');
+            var btn = document.getElementById('testimonial-palazzina-toggle');
+            if (!quote || !btn) return;
+            btn.addEventListener('click', function() {
+                var expanded = quote.classList.toggle('is-expanded');
+                btn.textContent = expanded ? 'Vidi manje' : 'Vidi više';
+                btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            });
+        })();
 
         (function mobileNav() {
             var toggle = document.getElementById('nav-menu-toggle');
