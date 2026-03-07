@@ -850,6 +850,22 @@
             transform: scale(1.02);
         }
 
+        /* Nakon klika na # link focus ostaje na linku i hover više ne djeluje normalno – uklonimo outline i uskladimo focus s hoverom, te blur nakon skrolanja */
+        nav a[href^="#"]:focus {
+            outline: none;
+        }
+        nav a[href^="#"].nav-link:focus {
+            color: white;
+        }
+        nav a[href^="#"].rounded-full:not(.btn-primary):focus {
+            background: white;
+            color: black;
+        }
+        nav a[href^="#"].btn-primary:focus {
+            filter: brightness(1.1);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+        }
+
         .logo-grayscale {
             filter: grayscale(1) brightness(0.7) contrast(1.2);
             transition: all 0.4s ease;
@@ -1325,6 +1341,19 @@
     <section id="contact" class="py-40 px-6 overflow-x-hidden">
         <div class="max-w-7xl min-w-0 mx-auto glass-panel p-6 sm:p-8 md:p-12 lg:p-24 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-96 h-96 bg-violet-600/10 blur-[120px] -z-10"></div>
+
+            <!-- Prvi plan: Poziv -->
+            <div class="text-center mb-20 md:mb-24 p-8 md:p-12 rounded-2xl bg-white/5 border border-white/10">
+                <p class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3">Jedan poziv. Problem riješen.</p>
+                <p class="text-base sm:text-lg text-zinc-400 mb-6">5 minuta razgovora vrijedi više od 10 mailova.</p>
+                <a href="tel:+385958400721" class="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full bg-violet-500/20 text-violet-400 hover:bg-violet-500/30 hover:text-violet-300 hover:scale-110 transition-all cursor-pointer" aria-label="Nazovi +385 95 840 0721">
+                    <i data-lucide="phone" class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14" aria-hidden="true"></i>
+                </a>
+                <p class="mt-4"><a href="tel:+385958400721" class="text-lg text-zinc-400 hover:text-violet-400 transition-colors">+385 95 840 0721</a></p>
+                <p class="text-zinc-500 text-sm mt-1">Dostupan 7–21</p>
+            </div>
+
+            <!-- Drugi plan: Uvod + forma -->
             <div class="grid md:grid-cols-2 gap-24">
                 <div class="min-w-0">
                     <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter mb-10 text-gradient break-words">Imate problem koji treba rješenje?</h2>
@@ -1339,6 +1368,7 @@
                             <div class="text-[10px] font-mono text-zinc-500 uppercase mb-4 tracking-widest">Društvene mreže</div>
                             <div class="flex gap-8 mt-6">
                                 <a href="https://www.linkedin.com/in/neven-mulavdic-11b937393/" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-violet-400 transition-all hover:scale-110" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                                <a href="https://www.instagram.com/nmsolux/" target="_blank" rel="noopener noreferrer" class="text-zinc-400 hover:text-violet-400 transition-all hover:scale-110" aria-label="Instagram"><i data-lucide="instagram" class="w-6 h-6"></i></a>
                             </div>
                         </div>
                     </div>
@@ -1827,6 +1857,17 @@
                     toggle.setAttribute('aria-expanded', 'false');
                     toggle.setAttribute('aria-label', 'Otvori izbornik');
                     document.body.style.overflow = '';
+                });
+            });
+        })();
+
+        (function blurHashLinksAfterClick() {
+            document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    var clicked = this;
+                    setTimeout(function() {
+                        if (document.activeElement === clicked) clicked.blur();
+                    }, 400);
                 });
             });
         })();
