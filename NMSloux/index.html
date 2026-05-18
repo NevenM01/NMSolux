@@ -6,6 +6,8 @@
     <title>NMSolux - Web aplikacije i sustavi. Rješenje za 7-14 dana.</title>
     <meta name="description" content="Custom softver, SaaS i unutarnji sustavi za tvrtke i startupove. Definirani rokovi, fiksne cijene, 6 mjeseci podrške.">
     <link rel="canonical" href="https://nmsolux.com/">
+    <meta name="geo.region" content="HR" />
+    <meta name="geo.placename" content="Istra, Hrvatska" />
     <!-- Open Graph -->
     <meta property="og:title" content="NMSolux - Web aplikacije i sustavi. Rješenje za 7-14 dana.">
     <meta property="og:description" content="Custom softver, SaaS i unutarnji sustavi za tvrtke i startupove. Definirani rokovi, fiksne cijene, 6 mjeseci podrške.">
@@ -29,17 +31,33 @@
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "Organization",
+          "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
           "name": "NMSolux",
-          "description": "Custom softver, SaaS i unutarnji sustavi za tvrtke i startupove. Definirani rokovi, fiksne cijene, 6 mjeseci podrške.",
+          "description": "Custom web aplikacije i sustavi za tvrtke i startupove. Definirani rokovi, fiksne cijene, 6 mjeseci podrške.",
           "url": "https://nmsolux.com/",
           "email": "mulavdic.neven2001@gmail.com",
-          "founder": { "@id": "#founder" }
+          "telephone": "+385958400721",
+          "areaServed": [
+            { "@type": "Country", "name": "Hrvatska" },
+            { "@type": "Country", "name": "Bosna i Hercegovina" },
+            { "@type": "Country", "name": "Srbija" },
+            { "@type": "Country", "name": "Slovenija" },
+            { "@type": "Country", "name": "Crna Gora" },
+            { "@type": "Country", "name": "Sjeverna Makedonija" },
+            { "@type": "Country", "name": "Kosovo" }
+          ],
+          "serviceType": ["Web aplikacije", "SaaS razvoj", "MVP razvoj", "Unutarnji sustavi", "Klijentski portali"],
+          "priceRange": "€€",
+          "founder": { "@id": "#founder" },
+          "sameAs": [
+            "https://www.linkedin.com/in/neven-mulavdic-11b937393/",
+            "https://www.instagram.com/nmsolux/"
+          ]
         },
         {
           "@id": "#founder",
           "@type": "Person",
-          "name": "Neven",
+          "name": "Neven Mulavdić",
           "jobTitle": "Founder / Developer",
           "worksFor": { "@type": "Organization", "name": "NMSolux" },
           "sameAs": "https://www.linkedin.com/in/neven-mulavdic-11b937393/"
@@ -99,6 +117,37 @@
             "@type": "Answer",
             "text": "Pošalji upit putem obrasca ili na email. Odgovaram unutar 24 sata s procjenom roka i cijene. Ako se dogovorimo, krećemo."
           }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "NMSolux",
+      "url": "https://nmsolux.com/",
+      "inLanguage": "hr"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "NMSolux",
+      "url": "https://nmsolux.com/",
+      "review": [
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Ivan B." },
+          "reviewBody": "Tražili smo prilagođeno rješenje i jasan proces. Suradnja je bila transparentna i bez stresa, s redovitim updateima. Zadovoljni smo i rezultatom i isporukom.",
+          "itemReviewed": { "@type": "Organization", "name": "NMSolux" }
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Vedran G." },
+          "reviewBody": "Proces suradnje bio je vrlo profesionalan, brz i konkretan. Komunikacija je bila jasna, a svi prijedlozi i dorade odrađeni su u dogovorenim rokovima. Rezultatom smo izuzetno zadovoljni.",
+          "itemReviewed": { "@type": "Organization", "name": "NMSolux" }
         }
       ]
     }
