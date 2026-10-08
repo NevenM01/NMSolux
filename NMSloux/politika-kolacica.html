@@ -6,6 +6,27 @@
     <title>Politika kolačića — NMSolux</title>
     <meta name="description" content="Politika kolačića NMSolux – što su kolačići, kako ih koristimo i kako upravljati postavkama.">
     <link rel="canonical" href="https://nmsolux.com/politika-kolacica.html">
+    <link rel="alternate" hreflang="hr" href="https://nmsolux.com/politika-kolacica.html">
+    <link rel="alternate" hreflang="en" href="https://nmsolux.com/en/cookie-policy.html">
+    <link rel="alternate" hreflang="x-default" href="https://nmsolux.com/politika-kolacica.html">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Politika kolačića — NMSolux">
+    <meta property="og:description" content="Politika kolačića NMSolux – što su kolačići, kako ih koristimo i kako upravljati postavkama.">
+    <meta property="og:url" content="https://nmsolux.com/politika-kolacica.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="hr_HR">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:image" content="https://nmsolux.com/assets/images/favcon/og-image-hr.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="NMSolux – SaaS proizvodi i marketplace platforme">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Politika kolačića — NMSolux">
+    <meta name="twitter:description" content="Politika kolačića NMSolux – što su kolačići, kako ih koristimo i kako upravljati postavkama.">
+    <meta name="twitter:image" content="https://nmsolux.com/assets/images/favcon/og-image-hr.png">
+    <meta name="twitter:image:alt" content="NMSolux – SaaS proizvodi i marketplace platforme">
     <link rel="icon" type="image/x-icon" href="assets/images/favcon/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favcon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favcon/favicon-16x16.png">
@@ -20,11 +41,18 @@
         .glass-panel { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--zinc-border); border-radius: 24px; }
         a { color: #a78bfa; }
         a:hover { text-decoration: underline; }
+        .skip-link { position: absolute; left: 1rem; top: -4rem; z-index: 200; padding: 0.75rem 1.25rem; background: #fafafa; color: #050308; border-radius: 9999px; font-size: 0.8125rem; font-weight: 700; text-decoration: none; transition: top 0.2s ease; }
+        .skip-link:focus { top: 1rem; }
+        a:focus-visible, button:focus-visible { outline: 2px solid #a78bfa !important; outline-offset: 3px; }
+        body .text-zinc-500 { color: #85858f; }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
     </style>
 </head>
 <body class="min-h-screen py-16 px-6">
-    <div class="max-w-3xl mx-auto">
+    <a href="#main" class="skip-link">Preskoči na sadržaj</a>
+    <main id="main" class="max-w-3xl mx-auto">
         <a href="index.html" class="inline-flex items-center gap-2 text-zinc-400 hover:text-white text-sm mb-12">← Natrag na naslovnicu</a>
+        <p class="text-zinc-500 text-sm mb-6"><a href="en/cookie-policy.html" hreflang="en" lang="en">English version</a></p>
         <h1 class="text-4xl font-bold mb-2">Politika kolačića</h1>
         <p class="text-zinc-500 text-sm mb-12">Zadnja izmjena: veljača 2026.</p>
 
@@ -37,8 +65,8 @@
                 <h2 class="text-white font-semibold text-lg mb-3">2. Kolačići na ovoj stranici</h2>
                 <p>Trenutno na ovoj stranici ne postavljamo vlastite kolačiće za praćenje ili oglašavanje. Koristimo sljedeće vanjske usluge:</p>
                 <ul class="list-disc pl-6 mt-2 space-y-1">
-                    <li><strong>Google Fonts</strong> — za učitavanje fontova. Google može postavljati kolačiće ili primati vašu IP adresu. Više: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</li>
-                    <li><strong>Netlify</strong> — ako koristimo Netlify za hosting i obrade obrasca, Netlify može koristiti kolačiće u svoje svrhe (npr. sigurnost, statistika). Više: <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">Netlify Privacy Policy</a>.</li>
+                    <li><strong>Google Fonts</strong> — za učitavanje fontova. Google može postavljati kolačiće ili primati vašu IP adresu. Više: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.</li>
+                    <li><strong>Netlify</strong> — ako koristimo Netlify za hosting i obrade obrasca, Netlify može koristiti kolačiće u svoje svrhe (npr. sigurnost, statistika). Više: <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">Netlify Privacy Policy</a>.</li>
                 </ul>
                 <p class="mt-3">Ako u budućnosti dodamo analitiku (npr. Google Analytics) ili druge alate koji koriste kolačiće, ovu politiku ćemo ažurirati i, gdje je potrebno, prikazati suglasnost (cookie banner) prije postavljanja nekih kolačića.</p>
             </section>
@@ -52,6 +80,6 @@
             </section>
         </div>
         <p class="text-center text-zinc-500 text-sm mt-12"><a href="index.html" class="text-violet-400">NMSolux</a> · <a href="politika-privatnosti.html">Politika privatnosti</a></p>
-    </div>
+    </main>
 </body>
 </html>

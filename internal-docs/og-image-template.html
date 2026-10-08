@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+  Predložak za OG sliku (1200x630). Nije dio stranice; služi samo za generiranje PNG-a.
+  Jezik: ?lang=hr (zadano) ili ?lang=en. Sigurnosne zone (samo za provjeru): ?guides=1
+  Sav tekst unutar središnjih 1000x500 px, "NMSolux" unutar središnjeg kvadrata 630x630 px.
+  Renderiranje: Playwright, viewport 1200x630, screenshot PNG.
+-->
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@400;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #050308; --accent: #8b5cf6; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: var(--bg); }
+  body {
+    position: relative; font-family: 'Plus Jakarta Sans', sans-serif; color: #fafafa;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 45%, rgba(60, 20, 90, 0.55) 0%, transparent 65%),
+      radial-gradient(ellipse 60% 70% at 15% 90%, rgba(30, 15, 60, 0.5) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 70% at 90% 10%, rgba(60, 20, 90, 0.35) 0%, transparent 60%),
+      #050308;
+  }
+  .dots { position: absolute; inset: 0; opacity: 0.35;
+    background-image: radial-gradient(circle at center, rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 28px 28px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, #000 0%, transparent 75%); mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, #000 0%, transparent 75%); }
+  .stage { position: absolute; left: 100px; top: 65px; width: 1000px; height: 500px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .name { font-size: 112px; font-weight: 800; letter-spacing: -0.045em; line-height: 1; margin-bottom: 30px; }
+  .name span { color: var(--accent); }
+  .line { font-size: 38px; font-weight: 400; color: #d4d4d8; line-height: 1.25; margin-bottom: 40px; }
+  .rule { width: 72px; height: 3px; border-radius: 2px; background: var(--accent); margin-bottom: 34px; opacity: 0.9; }
+  .stack { font-family: 'Fira Code', monospace; font-size: 25px; color: #a1a1aa; letter-spacing: 0.04em; }
+  .guides .g1 { position: absolute; left: 100px; top: 65px; width: 1000px; height: 500px; outline: 2px dashed rgba(0,255,150,.8); }
+  .guides .g2 { position: absolute; left: 285px; top: 0; width: 630px; height: 630px; outline: 2px dashed rgba(255,200,0,.8); }
+</style>
+</head>
+<body>
+  <div class="dots"></div>
+  <div class="stage">
+    <div class="name" id="name">NMS<span>olux</span></div>
+    <div class="line" id="line"></div>
+    <div class="rule"></div>
+    <div class="stack">Next.js · TypeScript · Supabase · Stripe</div>
+  </div>
+<script>
+  var q = new URLSearchParams(location.search);
+  var lang = q.get('lang') === 'en' ? 'en' : 'hr';
+  document.documentElement.lang = lang;
+  document.getElementById('line').textContent = lang === 'en' ? 'SaaS products and marketplaces' : 'SaaS proizvodi i marketplace platforme';
+  if (q.get('guides')) { document.body.classList.add('guides'); document.body.insertAdjacentHTML('beforeend', '<div class="g1"></div><div class="g2"></div>'); }
+</script>
+</body>
+</html>

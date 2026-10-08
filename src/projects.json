@@ -1,0 +1,139 @@
+{
+  "groups": [
+    { "id": "saas", "hr": "SaaS i interni sustavi", "en": "SaaS & internal systems", "projects": ["moja-ponudica", "movyn", "optilium", "flowops"] },
+    { "id": "platforms", "hr": "Platforme i marketplace", "en": "Platforms & marketplaces", "projects": ["gallebo", "walar", "kcpt"] },
+    { "id": "ai", "hr": "AI i automatizacija", "en": "AI & automation", "projects": ["respondly", "savio", "wellora", "document-intelligence"] },
+    { "id": "sites", "hr": "Web stranice", "en": "Websites", "projects": ["palazzina-burjaki"] }
+  ],
+  "statuses": {
+    "demo": { "hr": "Demo projekt", "en": "Demo project" },
+    "prod": { "hr": "U produkciji", "en": "In production" },
+    "pending": { "hr": "Funkcionalno, čeka lansiranje", "en": "Working, launch pending" }
+  },
+  "projects": {
+    "moja-ponudica": {
+      "title": "Moja ponudica",
+      "featured": true,
+      "status": "prod",
+      "link": "https://mojaponudica.netlify.app",
+      "role": { "hr": "Full-stack, baza i autentikacija", "en": "Full-stack, database and authentication" },
+      "stack": ["React", "TypeScript", "Supabase", "PostgreSQL"],
+      "desc": {
+        "hr": "Mali tim prodajne je ponude izrađivao ručno i to im je oduzimalo previše vremena. Izradio sam SaaS aplikaciju koja cijeli proces drži na jednom mjestu: izrada, uređivanje, organizacija i prezentacija ponuda, a klijenti imaju vlastiti portal za pregled onoga što im je podijeljeno. Aplikacija je multi-tenant i prošla je sigurnosnu reviziju: RLS po tenantu, Edge funkcije zaštićene JWT-om, osobni podaci uklonjeni iz logova. U provjerenoj Upwork recenziji iz ožujka 2026. klijent navodi znatno poboljšanje učinkovitosti tijeka rada.",
+        "en": "A small team was creating sales proposals by hand and it cost too much time. I built a SaaS platform that keeps the whole process in one place: creating, editing, organizing and presenting proposals, with a separate portal where clients review what is shared with them. It is multi-tenant and went through a full security pass: tenant-scoped RLS, JWT-protected Edge Functions, PII removed from logs. In a verified Upwork review from March 2026, the client reported a significant improvement in workflow efficiency."
+      }
+    },
+    "movyn": {
+      "title": "Movyn",
+      "role": { "hr": "Suosnivač, full-stack i AI", "en": "Co-founder, full-stack and AI" },
+      "stack": ["TypeScript", "Supabase", "PostgreSQL", { "hr": "AI obrada dokumenata", "en": "AI document processing" }],
+      "desc": {
+        "hr": "Kafići, barovi i restorani zalihe često prate ručno, pa su brojanja netočna, a usklađivanje traje dugo. Kao suosnivač izradio sam AI SaaS koji čita račune i otpremnice, obrađuje nestrukturirane podatke, prati potrošnju prema receptima i koristi jedinstveni PCS model mjera da stanja ostanu dosljedna. Ugostiteljski tim tako jasno vidi što je ušlo, što je potrošeno i što je ostalo, bez tablica i ponovnog brojanja.",
+        "en": "Cafes, bars and restaurants often track stock by hand, which leads to inaccurate counts and slow reconciliation. As a co-founder I built an AI-powered inventory SaaS that reads invoices and delivery notes, processes unstructured data, tracks recipe-based consumption and uses a unified PCS measurement model to keep counts consistent. Hospitality teams see what came in, what was used and what remains, without spreadsheets or recounting."
+      }
+    },
+    "optilium": {
+      "title": "Optilium",
+      "role": { "hr": "Back-end", "en": "Back-end" },
+      "stack": ["NestJS", "Prisma", "Supabase", "PostgreSQL", "TypeScript"],
+      "desc": {
+        "hr": "Optilium je zapovjedni centar za teretne prijevoznike: jedno mjesto za praćenje vozača, upravljanje teretima i povezivanje slobodnog kapaciteta. Izradio sam multi-tenant back-end s ELD praćenjem vozača u stvarnom vremenu, integracijom load boardova, mehanizmom za uparivanje, zakazanim poslovima, istekom tereta i simulatorima za testiranje prije spajanja stvarnih ELD i load board API-ja.",
+        "en": "Optilium is a command center for freight carriers: one place to track drivers, manage loads and match available capacity. I built the multi-tenant backend with real-time ELD driver tracking, load-board integration, a matching engine, scheduled jobs, load expiration and simulators for testing before the real ELD and load-board APIs were connected."
+      }
+    },
+    "flowops": {
+      "title": "FlowOps",
+      "status": "demo",
+      "link": "https://flowops.synidox.com/",
+      "role": { "hr": "AI automatizacija i back-end", "en": "AI automation and backend" },
+      "stack": ["Supabase", "PostgreSQL", "Slack", "Google Calendar API", "Resend", "RAG"],
+      "desc": {
+        "hr": "Tim koji vodi projekte kroz više alata morao je ručno prenositi svaku promjenu. Izradio sam event-driven mehanizam automatizacije za multi-tenant SaaS: radnje korisnika pokreću pravila koja šalju e-poštu, objavljuju na Slacku, stvaraju događaje u Google kalendaru ili pozivaju webhookove, uz potpuno praćenje statusa (na čekanju, u obradi, završeno, neuspjelo). Dodan je i AI sustav za analizu dokumenata (RAG). Svaka integracija stvarno izvršava akciju, bez mockanja.",
+        "en": "A team managing projects across several tools had to hand off every change manually. I built an event-driven automation engine for a multi-tenant SaaS: user actions trigger rules that send emails, post to Slack, create Google Calendar events or call webhooks, with full status tracking (pending, processing, completed, failed). I also added an AI document analysis system (RAG). Every integration executes for real, with no mocked logic."
+      }
+    },
+    "gallebo": {
+      "title": "Gallebo",
+      "featured": true,
+      "status": "pending",
+      "link": "https://gallebo.vercel.app/",
+      "role": { "hr": "Full-stack i marketplace", "en": "Full-stack and marketplace" },
+      "stack": ["TypeScript", "Supabase", "PostgreSQL", "Stripe Connect", "Didit KYC"],
+      "desc": {
+        "hr": "Gallebo je europsko tržište za opću zrakoplovstvo na kojem piloti i putnici dijele troškove leta u skladu s EASA pravilima. Izradio sam multi-tenant SaaS s odvojenim pristupom i dopuštenjima za pilote i putnike, Stripe Connect za podjelu plaćanja, Didit za KYC provjeru identiteta i Supabase RLS za pristup podacima prema ulozi. Plaćanja, provjera identiteta, uloge i zaštićeni podaci rade zajedno u jednoj sigurnoj aplikaciji, a iskustvo ostaje jednostavno. Projekt radimo zajednički, sustav radi od kraja do kraja, a lansiranje čeka pravni subjekt.",
+        "en": "Gallebo is a European marketplace for general aviation where pilots and passengers share flight costs in line with EASA rules. I built a multi-tenant SaaS with separate access and permissions for pilots and passengers, Stripe Connect for payment splitting, Didit for KYC identity verification and Supabase RLS for role-based data access. Payments, identity checks, roles and protected data work together in one secure application while the experience stays simple. This is a joint project, the system works end to end, and launch is waiting on the legal entity."
+      }
+    },
+    "walar": {
+      "title": "WALAR",
+      "link": "https://walar-skydive.netlify.app",
+      "role": { "hr": "Full-stack", "en": "Full-stack" },
+      "stack": ["React", "TypeScript", "Supabase", "PostgreSQL"],
+      "desc": {
+        "hr": "WALAR (World Accuracy Landing Ranking) trebao je prebaciti bodovanje s Excel tablica na platformu koju mogu koristiti sportaši, organizatori i javnost. Izradio sam web aplikaciju s React/TypeScript frontendom i Supabase/PostgreSQL back-endom. Sustav bodovanja (tablice za udaljenost doskoka, bonus bodovi prema plasmanu, množitelji za državne reprezentativce, juniore i medaljaše) računa se na poslužitelju u PostgreSQL funkcijama, a rezultati ulaze u klizni petogodišnji poredak s filterima. Uključuje dizajn sheme baze, RLS po ulogama, GDPR privole za javne podatke sportaša, uvoz CSV/Excel rezultata i admin panel.",
+        "en": "WALAR (World Accuracy Landing Ranking) needed to move its scoring off spreadsheets into a platform athletes, organizers and the public can use. I built a web application with a React/TypeScript frontend and a Supabase/PostgreSQL backend. The scoring engine (jump-distance lookup tables, placement bonus points, multipliers for national team members, juniors and medalists) is calculated server-side in PostgreSQL functions and feeds a rolling five-year leaderboard with filters. It includes database schema design, role-based RLS, GDPR-compliant consent for public athlete data, CSV/Excel import tooling and an admin panel."
+      }
+    },
+    "kcpt": {
+      "title": "KCPT",
+      "featured": true,
+      "quote": "kcpt",
+      "role": { "hr": "Full-stack, vodio isporuku, back-end i baza", "en": "Full-stack, led delivery, backend and database" },
+      "stack": ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "PWA"],
+      "desc": {
+        "hr": "Britanski fitness coaching posao s više od 400 članova koji plaćaju trebao je bolji način da članovi planiraju obroke, prate tjedni napredak i dijele rezultate s trenerima. Izradio sam web aplikaciju u Next.js i Supabaseu: tjedni plan prehrane, dnevni tracker uspjeha, povijest napretka i izvoz PDF-ova u brendu, a treneri imaju admin nadzornu ploču. Portal je isporučen prije roka i ugrađen u postojeću aplikaciju klijenta običnim linkom. Vodio sam isporuku te radio back-end i arhitekturu baze, a front-end smo izradili u suradnji.",
+        "en": "A UK fitness coaching business with 400+ paying members needed a better way for members to plan meals, track weekly progress and share updates with coaches. I built a web application with Next.js and Supabase: weekly meal plans, a daily success tracker, progress history and branded PDF export, plus an admin dashboard for coaches. The portal was delivered ahead of schedule and embedded into the client's existing app through a simple link. I led delivery and owned the backend and database architecture, with the frontend built in collaboration. Closed with a 5.0 rating on Upwork."
+      }
+    },
+    "respondly": {
+      "title": "Respondly",
+      "role": { "hr": "Back-end", "en": "Back-end" },
+      "stack": ["Supabase", "RAG", "MCP", "WhatsApp"],
+      "desc": {
+        "hr": "Estetska klinika trebala je odmah odgovarati na pitanja pacijenata na WhatsAppu, bez rizika da pogrešan ili izmišljen odgovor stigne do pacijenta. Izradio sam AI agenta za podršku: RAG odgovori temeljeni na stvarnom FAQ sadržaju klinike, obvezni sloj ljudskog odobrenja (svaku AI skicu netko mora odobriti, urediti ili odbiti prije slanja) i AI pozivanje alata (MCP) kojim model odlučuje kada zakazati termin. Uključuje webhook s provjerom potpisa, idempotentnu obradu poruka i potpuni audit log. Nijedna AI poruka ne stiže do osobe bez ljudske odluke.",
+        "en": "An aesthetic clinic needed to answer patient questions on WhatsApp instantly, without risking a wrong or hallucinated answer reaching a patient. I built a WhatsApp AI support agent: RAG-grounded answers from the clinic's real FAQ content, a mandatory human-in-the-loop approval layer (every AI draft must be approved, edited or rejected before sending) and AI tool-calling (MCP) so the model decides when to book an appointment. It includes webhook signature verification, idempotent message handling and full audit logging. No AI message reaches a person without a human decision."
+      }
+    },
+    "savio": {
+      "title": "Savio",
+      "status": "demo",
+      "link": "https://savio.synidox.com/",
+      "role": { "hr": "Back-end", "en": "Back-end" },
+      "stack": ["Supabase", "OpenAI API", "Stripe"],
+      "desc": {
+        "hr": "Financijski SaaS trebao je sirove podatke o prihodima i troškovima pretvoriti u uvide na koje korisnici stvarno reagiraju, a ne u još jednu tablicu. Izradio sam AI analitički sloj koji otkriva obrasce potrošnje, označava financijske rizike i generira personalizirane preporuke na prirodnom jeziku iz strukturiranih podataka. Namjerno nije chatbot nego automatizirani sustav pokrenut stvarnim podacima korisnika. Sustav uključuje model financijskih podataka (prihodi, troškovi, štednja, dug), Stripe pretplate i pravila pristupa koja AI značajke zaključavaju iza Pro razine.",
+        "en": "A finance SaaS needed to turn raw income and expense data into insight users would act on, not another spreadsheet. I built the AI analysis layer that detects spending patterns, flags financial risks and generates personalized natural-language recommendations from structured data. It is deliberately not a chatbot but an automated system triggered by real user data. The product includes a financial data model (income, expenses, savings, debt), Stripe subscriptions and role-based gating that locks AI features behind a Pro tier."
+      }
+    },
+    "wellora": {
+      "title": "Wellora",
+      "status": "demo",
+      "link": "https://wellora.synidox.com/",
+      "role": { "hr": "Full-stack", "en": "Full-stack" },
+      "stack": ["Supabase", "OpenAI API"],
+      "desc": {
+        "hr": "Korisnici koji prate dnevne navike (san, hidratacija, kretanje, mindfulness) imali su sirove podatke, ali bez ručnog rada nikakav uvid. Izradio sam automatizirani pipeline koji u stvarnom vremenu računa analitiku iz vremenskih nizova aktivnosti i pokreće AI uvide i refleksije prilagođene obrascima svakog korisnika. Uvidi se ponovno generiraju čim stignu novi podaci. OpenAI integracija radi strukturiranu analizu, a ne otvoreni chat.",
+        "en": "Users tracking daily habits (sleep, hydration, movement, mindfulness) had raw data but no way to turn it into insight without manual effort. I built an automated pipeline that computes real-time analytics from time-series activity logs and triggers AI-generated behavioral insights tailored to each user's patterns, regenerated whenever new data comes in. The OpenAI integration does structured analysis rather than open-ended chat."
+      }
+    },
+    "document-intelligence": {
+      "title": "Document Intelligence",
+      "status": "demo",
+      "role": { "hr": "Full-stack", "en": "Full-stack" },
+      "stack": ["RAG", "Supabase", { "hr": "API integracija", "en": "API integration" }],
+      "desc": {
+        "hr": "Tvrtka je trebala brz i pouzdan način da dobije odgovore iz vlastitih dokumenata umjesto ručnog pretraživanja PDF-ova, te usporedbu dva dokumenta radi pronalaženja propuštenih stavki ili neusklađenih uvjeta. Izradio sam AI alat s dvije značajke na zajedničkoj podlozi za dohvat: chat koji odgovara s citatima na izvorni dokument i AI usporedbu koja automatski označava razlike i izrađuje strukturirani izvještaj. Svaki odgovor ostaje provjerljiv i povezan s izvorom.",
+        "en": "A business needed a fast, trustworthy way to get answers from its own documents instead of manually searching PDFs, plus a way to compare two documents for missing items or mismatched terms. I built an AI document intelligence tool with two features on a shared retrieval foundation: a chat that answers with citations back to the source document, and an AI-generated comparison that flags differences and produces a structured report. Every answer stays verifiable and traceable to its source."
+      }
+    },
+    "palazzina-burjaki": {
+      "title": "Villa Palazzina Burjaki",
+      "link": "https://palazzinaburjaki.com",
+      "stack": [],
+      "desc": {
+        "hr": "Prezentacijska stranica za vilu u Istri: više jezika, galerija soba i okoliša, sadržaji i lokacija, česta pitanja, recenzije i rezervacija.",
+        "en": "A presentation website for a villa in Istria: multiple languages, a gallery of rooms and surroundings, amenities and location, FAQ, reviews and booking."
+      }
+    }
+  }
+}
