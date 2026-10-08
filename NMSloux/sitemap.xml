@@ -1,17 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://nmsolux.com/</loc>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://nmsolux.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nmsolux.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nmsolux.com/"/>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://nmsolux.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://nmsolux.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nmsolux.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nmsolux.com/"/>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://nmsolux.com/politika-privatnosti.html</loc>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://nmsolux.com/politika-privatnosti.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nmsolux.com/en/privacy-policy.html"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://nmsolux.com/en/privacy-policy.html</loc>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://nmsolux.com/politika-privatnosti.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nmsolux.com/en/privacy-policy.html"/>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://nmsolux.com/politika-kolacica.html</loc>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://nmsolux.com/politika-kolacica.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nmsolux.com/en/cookie-policy.html"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://nmsolux.com/en/cookie-policy.html</loc>
+    <xhtml:link rel="alternate" hreflang="hr" href="https://nmsolux.com/politika-kolacica.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nmsolux.com/en/cookie-policy.html"/>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
